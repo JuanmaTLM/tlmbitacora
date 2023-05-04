@@ -1,0 +1,38 @@
+
+CREATE TABLE listMerca(
+	eIdList INT AUTO_INCREMENT PRIMARY KEY,
+	fk_eIdMerca INT,
+	fk_eIdReferencia INT,
+	txtMercancia VARCHAR(100),
+	txtBultos VARCHAR(100),
+	txtFraccion VARCHAR(30),
+	feCreacion DATETIME DEFAULT  CURRENT_TIMESTAMP(),
+	feModificacion DATETIME DEFAULT  CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE catGastos (
+	eIdGastos INT AUTO_INCREMENT PRIMARY KEY,
+	fk_eIdGasto INT,
+	fk_eIdReferencia INT,
+	txtValor VARCHAR(50),
+	feCreacion DATETIME DEFAULT  CURRENT_TIMESTAMP(),
+	feModificacion DATETIME DEFAULT  CURRENT_TIMESTAMP()
+); 
+
+CREATE TABLE catManiobaExtra (
+	eIdManExtra INT AUTO_INCREMENT PRIMARY KEY,
+	fk_eIdExtra INT,
+	fk_eIdReferencia INT,
+	txtValor VARCHAR(50),
+	feCreacion DATETIME DEFAULT  CURRENT_TIMESTAMP(),
+	feModificacion DATETIME DEFAULT  CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE listGastos(
+	eIdLGasto INT AUTO_INCREMENT PRIMARY KEY,
+	txtCveGasto VARCHAR(30),
+	txtValor VARCHAR(50),
+	feCreacion DATETIME DEFAULT  CURRENT_TIMESTAMP(),
+	feModificacion DATETIME DEFAULT  CURRENT_TIMESTAMP()
+);
+
