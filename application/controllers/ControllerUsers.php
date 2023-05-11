@@ -62,5 +62,25 @@ class ControllerUsers extends CI_Controller {
 		//print_r(json_encode($result));
 	}
 
+	public function changeStatusUser(){
+		$data = json_decode(file_get_contents("php://input"), true);
+				$result = $this->MUsers->changeStatusUser($data);
+				echo $result;
+				//print_r(json_encode($result));
+	}
+	public function deleteUser(){
+		$data = json_decode(file_get_contents("php://input"), true);
+				$result = $this->MUsers->deleteUser($data);
+				echo $result;
+				//print_r(json_encode($result));
+	}
+
+	public function resetPass(){
+		$data = json_decode(file_get_contents("php://input"), true);
+				$result = $this->MUsers->resetPass($data);
+				echo $result;
+				//print_r(json_encode($result));
+	}
+	
 
 }

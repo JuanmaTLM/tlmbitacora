@@ -68,6 +68,10 @@ $route['addUser'] = 'ControllerUsers/addUser';
 $route['changePass'] = 'ControllerUsers/changePass';
 $route['getUserData'] = 'ControllerUsers/getUserData';
 $route['editUser'] = 'ControllerUsers/editUser';
+$route['changeStatusUser'] = 'ControllerUsers/changeStatusUser';
+$route['deleteUser'] = 'ControllerUsers/deleteUser';
+$route['resetPass'] = 'ControllerUsers/resetPass';
+
 
 
 //FIN USUARIOS

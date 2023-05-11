@@ -127,7 +127,40 @@ public function postUser($data){
 			return false;
 		}
 	}	
+	public function changeStatusUser($data){
+		$query = "CALL changeStatusUser(".$data['id'].");";
 
+		$result = $this->db->query($query);
+
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public function deleteUser($data){
+		$query = "CALL deleteUser(".$data['id'].");";
+
+		$result = $this->db->query($query);
+
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function resetPass($data){
+		$query = "CALL resetPass(".$data['userId'].");";
+		return $query;
+		/*$result = $this->db->query($query);
+
+		if($result){
+			return true;
+		}else{
+			return false;
+		}*/
+	}
 
 
 

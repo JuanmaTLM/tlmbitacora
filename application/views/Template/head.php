@@ -64,14 +64,14 @@ date_default_timezone_set('America/Monterrey');
 
 	}
 	section#principal{
-	 	min-height: 200vh;
+	 	min-height: 130vh;
 	 		background-color: lightblue; /* For browsers that do not support gradients */
 	 	 /*background-image: conic-gradient(darkblue,darkblue,blue,blue,lightblue, white,lightblue,blue,blue,darkblue,darkblue);*/
 	 	 /*background-image:url(<?= base_url('assets/img/bg_all.gif') ?>);*/
        	background-size: 100%;
 	}
 	section{
-		min-height: 200vh;
+		min-height: 130vh;
 		min width: 100%;
 	}
 	footer{
