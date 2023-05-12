@@ -159,13 +159,13 @@
 		  function(res){
 		        if (res.status == 200) {
 		        	console.log(res.data);
-		          /*if(res.data == 1){
+		          if(res.data == 1){
 		          	alert("Contraseña Generada Correctamente!")
 		          	window.location.reload();
 		          }else{
 		          	alert("Usuario NO Eliminado!")
 
-		          }*/
+		          }
 		        }
 		  }).catch(function(err){
 		    alert(err);
