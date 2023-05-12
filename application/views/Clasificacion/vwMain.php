@@ -44,6 +44,6 @@
 
 	function goclasGlosa(){
 		var url = "<?php echo site_url('mercaRefe') ?>";
-		window.location.href = url +  "?cveReferencia="+cveRefMerca; 
+		window.location.href = url +  "?cveReferencia="+cveRefMerca+"&eIdReferencia="+idRefMerca; 
 	}
 </script>

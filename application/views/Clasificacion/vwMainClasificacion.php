@@ -1,5 +1,5 @@
 <?php 
-	
+	//print_r($reference);
  ?>
 <br>
 <style type="text/css">
@@ -7,6 +7,13 @@
 		border : none !important;
 	}
 </style>
+<div class="p-2 mt-2 d-flex flex-wrap justify-content-start bg-white"> 
+		<div>
+			<form action="<?php echo site_url('clasGlosa');?>" method="POST">
+				<button type="submit" class="btn btn-outline-warning btn-sm" name="eIdReferencia" value="<?php echo $reference['eIdReferencia'] ;  ?>"><<- Regresar </button>
+			</form>
+		</div>
+	</div>
 <div class="d-flex flex-column flex-container bg-white rounded" id="sectionGenerales">
 	<div class="d-flex flex-wrap justify-content-center">
 		<div class="p-2 text-center">
@@ -108,6 +115,7 @@
 </div>
 
 <script type="text/javascript">
+	frmback
 	function changeClose(contId){
 		console.log(contId);
 		let cnt = {}; 

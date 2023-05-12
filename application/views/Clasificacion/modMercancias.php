@@ -94,11 +94,12 @@
 
     let mercaCards = document.getElementById('mercaCards');
     let itemMerca ="";
+     mercaCards.innerHTML=itemMerca;
     let num = 0;
+     let urlFile ="";
     for(var merca of data){ 
       num++;
-      let urlFile = "<?php echo base_url() ?>" + merca.txtUrlPhoto; 
-      itemMerca =""
+      urlFile = "<?php echo base_url() ?>" + merca.txtUrlPhoto; 
       itemMerca += '<div class="d-flex align-items-center flex-wrap justify-content-center align-content-center ">';
       itemMerca += '<div class="p-2" style="width:10%;height:60px;">';
       itemMerca += '<img class="rounded" src="'+urlFile+'" id="imgMerca_'+ num +'" name="imgMerca_'+ num +'"style="width:50px; height: 50px"> ';
@@ -115,13 +116,13 @@
       itemMerca += '<label class="" style="font-size:11px;">Fracción Arancelaria: <br> <strongid="cntFracc_'+ num +'">'+ merca.txtFraccion +'</strong></label>';
       itemMerca += '</div>';
       itemMerca += '</div>';
-      itemMerca += '</div> ';
+      itemMerca += '</div>';
+      itemMerca += '</div>';
       
-      mercaCards.innerHTML+=itemMerca;
+      mercaCards.innerHTML=itemMerca;
     }
     
-
-    }
+  }
 
   function addMercancia(){
     $('#addMerca').modal('show');

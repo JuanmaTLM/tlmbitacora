@@ -57,8 +57,10 @@
 				function(res){
 		          if (res.status == 200) {
 		            if(res.data){
-		            	let Refs = res.data;
-		            	for(var ref of Refs){
+		            	let refs = res.data;
+		            	console.log(refs)
+		            	item = '';
+		            	for(var ref of refs){
 							item += '<tr class="p-1 text-center">';
 							item += '<th scope="row">'+ ref.cveReferencia + '</th>';
 							item += '<td>'+ ref.txtReferenciaAD + 'AAD-001</td>';
@@ -98,22 +100,11 @@
 								
 								item += '</div>';
 							
-								/*if(ref.bActiva == 1){
-									item += '<div>';
-									item += '<button type="button" class="btn btn-outline-success btn-noline" value="'+ ref.eIdReferencia + '" title="Desactivar/Activar" id="btnChange'+ ref.eIdReferencia + '" onmouseover="backcolor(this.id,0);" onmouseleave="backcolor(this.id,1);"><i class="fas fa-toggle-on" onclick="changeState('+ ref.eIdReferencia +');"></i></button>';
-									item += '</div>';
-									item += '</div>';
-								}else{
-									item += '<div>';
-									item += '<button type="button" class="btn btn-outline-danger btn-noline" value="'+ ref.eIdReferencia + '" title="Desactivar/Activar" id="btnChange'+ ref.eIdReferencia + '" onmouseover="backcolor2(this.id,0);" onmouseleave="backcolor2(this.id,1);"><i class="fas fa-toggle-off" onclick="changeState('+ ref.eIdReferencia +');"></i></button>';
-									item += '</div>';
-									item += '</div>';
-								}*/
-								
 								item += '</td>';
 								item += '</tr>';
 						}
-							table.innerHTML +=  item;
+							table.innerHTML =  item;
+							console.log(item);
 
 		            }
 		          }
@@ -121,7 +112,18 @@
 		          alert(err);
 		          console.log(err);
 		      	});
-						/*f*/
+/*if(ref.bActiva == 1){
+	item += '<div>';
+	item += '<button type="button" class="btn btn-outline-success btn-noline" value="'+ ref.eIdReferencia + '" title="Desactivar/Activar" id="btnChange'+ ref.eIdReferencia + '" onmouseover="backcolor(this.id,0);" onmouseleave="backcolor(this.id,1);"><i class="fas fa-toggle-on" onclick="changeState('+ ref.eIdReferencia +');"></i></button>';
+	item += '</div>';
+	item += '</div>';
+}else{
+	item += '<div>';
+	item += '<button type="button" class="btn btn-outline-danger btn-noline" value="'+ ref.eIdReferencia + '" title="Desactivar/Activar" id="btnChange'+ ref.eIdReferencia + '" onmouseover="backcolor2(this.id,0);" onmouseleave="backcolor2(this.id,1);"><i class="fas fa-toggle-off" onclick="changeState('+ ref.eIdReferencia +');"></i></button>';
+	item += '</div>';
+	item += '</div>';
+}*/
+		
 				
 			}
 			
