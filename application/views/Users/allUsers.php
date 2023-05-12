@@ -46,7 +46,7 @@
 
 			      			} ?>
 
-			      			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="resetPass(<?php echo $user['userID']; ?>,1);"> Reestablecer Contraseña </button>
+			      			<button type="button" class="btn btn-outline-info btn-sm" onclick="resetPass(<?php echo $user['userID']; ?>,1);"> Reestablecer Contraseña </button>
 			      			<button type="button" class="btn btn-outline-danger btn-sm" onclick="changeStatusU(<?php echo $user['userID']; ?>,1);"> Eliminar </button>
 			      		</td>
 			      	</tr>

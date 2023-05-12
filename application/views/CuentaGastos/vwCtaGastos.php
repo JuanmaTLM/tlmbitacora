@@ -49,9 +49,14 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#mnuDeposito"> Depósitos </a>
           </li>
+          <?php 
+
+          if($totIngresos['TotalDepositos'] != 0){
+          ?>;
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#Gastos">Gastos </a>
           </li>
+        <?php } ?>
         </ul>
 
         <!-- Tab panes -->
