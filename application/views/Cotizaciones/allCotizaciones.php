@@ -10,11 +10,10 @@
 
 		</div>
 		<div class="p-2  d-flex flex-wrap justify-content-end "> 
-
-			<div class="">
-				<button class="btn btn-sm btn-outline-success" onclick="newCot()">Nueva Cotización</button>
-				<a href="<?php echo site_url('nwCotizacion') ?>" class="btn btn-sm btn-outline-success">Cotización Cliente</a>
+			<div>
+				<button class="btn btn-sm btn-outline-warning" onclick="newCot()">Nueva Cotización</button>
 			</div>
+			
 
 		</div>
 

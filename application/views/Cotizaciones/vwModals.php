@@ -12,7 +12,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Nueva Cotización</h4>
+        <h4 class="modal-title" >Cotización de <strong >Servicios Integrales de Logística</strong></h4>
         
       </div>
 
@@ -144,7 +144,7 @@
 
 
 <div class="modal" id="addConcepto">
-  <div class="modal-dialog ">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -159,40 +159,33 @@
             
             <div class="form-group p-2 flex-fill">
               <label for="txtConcepto">Descripción:</label>
-              <input required type="text" list="conceptos" class="form-control" name="txtConcepto" id="txtConcepto" placeholder="Descripción del Concepto a Cotizar">
-              <datalist id="conceptos">
-                <option value="Uno">Uno</option>
-                <option value="Dos">Dos</option>
-                <option value="Tres">Tres</option>
-                <option value="Cuatro">Cuatro</option>
-                <option value="Cinco">Cinco</option>
-                <option value="Seis">Seis</option>
-              </datalist>
+              <input required type="text" class="form-control" name="txtConcepto" id="txtConcepto" placeholder="Descripción del Concepto a Cotizar">
+              
             </div>
            
           </div>
 
-          <div class="d-flex flex-wrap border-top-0 border-black">
+          <div class="d-flex flex-wrap border-top-0 border-black justify-content-end" >
             
-            <div class="form-group p-2 flex-fill">
+            <div class="form-group p-1">
               <label for="txtCant">Cantidad:</label>
-              <input required type="number" class="form-control" name="txtCant" id="txtCant" min="1" max="10000" value="1">
+              <input required type="number" class="form-control" name="txtCant" id="txtCant" min="1" value="1" onkeyup="findMonetary()" onchange="findMonetary()">
             </div>
-            <div class="form-group p-2 flex-fill">
-              <label for="txtPrecio">Precio ($):</label>
-              <input required type="number" step=".01" class="form-control" min="0.01" max ="999999999.99" placeholder="1.00" name="txtPrecio" id="txtPrecio">
+            <div class="form-group p-1">
+              <label for="flPrecio">Precio:</label>
+              <input required type="number" step=".05" class="form-control" min="1.00" value="1.00" name="flPrecio" id="flPrecio" onkeyup="findMonetary()" onchange="findMonetary()">
             </div>
-            <div class="form-group p-2 flex-fill">
-              <label for="txtIVA">IVA (%):</label>
-              <input required  type="number" step=".01" min="0.01" max ="99.99" placeholder=" Ejemplo: 16 = 16%" class="form-control" name="txtIVA" id="txtIVA">
+            <div class="form-group p-1">
+              <label for="txtIVA">IVA(%):</label>
+              <input required  type="number" step=".01" min="0.01" max ="99.99" value="0.00" class="form-control" name="txtIVA" id="txtIVA" onkeyup="findMonetary()" onchange="findMonetary()">
             </div>
 
           </div>
            <div class="d-flex flex-wrap border-top-0 border-black" >
                 
                 <div class="form-group p-2 flex-fill" >
-                  <label for="txtMoneda">Moneda:</label>
-                  <input  type="text" class="form-control" name="txtMoneda" id="txtMoneda" list="moneyList" onchange="findMonetary(this.value);">
+                  <label for="txtMoneda">Tipo de Moneda de Cambio:</label>
+                  <input  type="text" class="form-control" name="txtMoneda" id="txtMoneda" list="moneyList">
                   <datalist id="moneyList">
                     <option value="Peso Mexicano" title="Peso Mexicano">MX ($)</option>
                     <option value="Dólar estadounidense" title="Dólar estadounidense">USD ($)</option>
@@ -202,8 +195,8 @@
                   </datalist>
                 </div>
                 <div class="form-group p-2 flex-fill">
-                  <label for="txtTipoCambio">Tipo Cambio:</label>
-                  <input  type="text" class="form-control" name="txtTipoCambio" id="txtTipoCambio" list="moneyList" >
+                  <label for="txtValorCambio">Valor moneda:</label>
+                  <input  type="number" class="form-control" name="txtValorCambio" id="txtValorCambio" min="1.00" step="0.05" value="1.00" onkeyup="findMonetary()" onchange="findMonetary()">
                  
                 </div>
                 
@@ -211,11 +204,10 @@
               </div>
 
                <div class="d-flex flex-wrap justify-content-end border-top-0 border-black" >
-                
-                
-                <div class="form-group p-2 flex-fill">
-                  <label for="txtTipoCambio">Cambio:
-                  <input  type="text" class="form-control" name="txtCambio" id="txtambio" disabled>
+
+                <div class="form-group p-2">
+                  <label for="flTotal">Total:
+                  <input  type="number"  class="form-control" name="flTotal" id="flTotal" disabled>
                  
                 </div>
                 
@@ -235,14 +227,57 @@
   </div>
 </div>
 
-  <script src="../assets/js/Mercancia.js"></script>
+
+<div class="modal" id="newCotizacion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Tipo de cotizacion </h4>
+
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body d-flex flex-wrap flex-column border border-black rounded-right border-top-0">
+          <label for="opCoti">Tipo de cotización:</label>
+          <select class="form-control" name="opCoti" id="opCoti">
+            <option value="0">Seleccione una opción</option>
+            <option value="1">Servicios Interales de Logística</option>
+            <option value="2">Servicio de Transporte</option>
+            
+          </select>
+  
+      </div>
+      <div class="modal-footer d-flex flex-wrap justify-content-around">
+        <button type="button" class="btn btn-outline-success" onclick="selCoti();">Siguiente</button>
+        <button type="button" class="btn btn-outline-danger" >Cancelar</button>
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/Mercancia.js"></script>
 
 
 <script type="text/javascript">
-
+  function selCoti(){
+      let op = document.getElementById('opCoti').value;
+      console.log(op);
+      switch(op){
+      case '1':
+        $("#newCotizacion").modal('hide');
+        $("#addCotizacion").modal('show');
+        break;
+      case '2':
+        $("#newCotizacion").modal('hide');
+        $("#newTransporte").modal('show');
+        break;
+      }
+  }
   getDate();
-
-
   function fillDays(){
     let creditDays = document.getElementById("txtDiaCredito");
     var timeStart = new Date();
@@ -257,7 +292,6 @@
         creditDays.value = 0;
     }
   }
-
   function getDate(){
       var today = new Date();
       let inpDate = document.getElementById("txtVigencia");
@@ -272,15 +306,31 @@
   return date;
 }
 
-  function findMonetary(money){
-    console.log(money);
+  function findMonetary(){
+    let resultadoCambio;
+    let resultadoCosto;
+    let flTotal = document.getElementById('flTotal');
+    let flCantidad= parseFloat(document.getElementById('txtCant').value).toFixed(2);
+    let flPrecio = parseFloat(document.getElementById('flPrecio').value).toFixed(2);
+    let flIVA= parseFloat(document.getElementById('txtIVA').value).toFixed(2);
+    let flValorCambio= parseFloat(document.getElementById('txtValorCambio').value).toFixed(2);
+
+    resultadoCambio = flCantidad * flPrecio * flValorCambio;
+    resultadoCosto = parseFloat((resultadoCambio * (flIVA / 100)) + resultadoCambio);
+
+    console.log("Resultado Cambio:");
+    console.log(resultadoCambio.toFixed(2));
+    console.log("Resultado Costo");
+    console.log(resultadoCosto.toFixed(2));
+
+    flTotal.value = resultadoCosto.toFixed(2);
   }
 
 
   let listCheck = document.getElementById("checkList");
    
   function newCot(){
-    $("#addCotizacion").modal('show');
+    $("#newCotizacion").modal('show');
   }
   function openConcepts(){
     $("#addConcepto").modal('show');
@@ -295,7 +345,7 @@
     $("#addConcepto").modal('hide');
     document.getElementById("txtConcepto").value= '';
     document.getElementById("txtCant").value = 1;
-    document.getElementById("txtPrecio").value= '';
+    document.getElementById("flPrecio").value= '';
     document.getElementById("txtIVA").value = '';
 
 
@@ -304,12 +354,13 @@
   var totCotizacion = 0;
   var cardNum = 1;
   var listConcepts = [];
+  
   function addCheckElement(data){
 
     let item ={};
     let conc = document.getElementById("txtConcepto").value;
     let cant = document.getElementById("txtCant").value;
-    let prec = document.getElementById("txtPrecio").value;
+    let prec = document.getElementById("flPrecio").value;
     let iva = document.getElementById("txtIVA").value ;
     //
     item.txtConc = conc;

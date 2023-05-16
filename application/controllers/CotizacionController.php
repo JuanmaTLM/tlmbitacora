@@ -19,8 +19,9 @@ class CotizacionController extends CI_Controller {
 		$this->load->view('Template/head');
 		$this->load->view('Template/Menu');
 		$this->load->view('Template/changePass');
-		$this->load->view('cotizaciones/allCotizaciones',$info);
+		$this->load->view('cotizaciones/nwCotizacionCte');
 		$this->load->view('cotizaciones/vwModals');
+		$this->load->view('cotizaciones/allCotizaciones',$info);
 		$this->load->view('Template/footer');
 		
 	}
@@ -28,7 +29,6 @@ class CotizacionController extends CI_Controller {
 		$this->load->view('Template/head');
 		$this->load->view('Template/Menu');
 		$this->load->view('Template/changePass');
-		$this->load->view('cotizaciones/nwCotizacionCte');
 		$this->load->view('Template/footer');
 	}
 	public function getCotizaciones(){
