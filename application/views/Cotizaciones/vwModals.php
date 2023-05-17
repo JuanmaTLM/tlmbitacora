@@ -109,6 +109,8 @@
                         <th title="Precio Unitario">P/U</th>
                         <th title="Porcentaje correspondiente de IVA">IVA (%) </th>
                         <th title="Monto monetario correspondiente de IVA">Monto IVA ($) </th>
+                        <th>Tipo Moneda</th>
+                        <th>Valor de Cambio</th>
                         <th>Importe</th>
                         <th>Accion</th>
                       </tr>
@@ -265,7 +267,6 @@
 <script type="text/javascript">
   function selCoti(){
       let op = document.getElementById('opCoti').value;
-      console.log(op);
       switch(op){
       case '1':
         $("#newCotizacion").modal('hide');
@@ -306,22 +307,21 @@
   return date;
 }
 
+   let flTotal = document.getElementById('flTotal');
+   let montIVA = 0.00;
+
   function findMonetary(){
-    let resultadoCambio;
-    let resultadoCosto;
-    let flTotal = document.getElementById('flTotal');
-    let flCantidad= parseFloat(document.getElementById('txtCant').value).toFixed(2);
-    let flPrecio = parseFloat(document.getElementById('flPrecio').value).toFixed(2);
-    let flIVA= parseFloat(document.getElementById('txtIVA').value).toFixed(2);
-    let flValorCambio= parseFloat(document.getElementById('txtValorCambio').value).toFixed(2);
+   let resultadoCambio;
+   let resultadoCosto;
+   let flCantidad= parseFloat(document.getElementById('txtCant').value).toFixed(2);
+   let flPrecio = parseFloat(document.getElementById('flPrecio').value).toFixed(2);
+   let flIVA= parseFloat(document.getElementById('txtIVA').value).toFixed(2);
+   let flValorCambio= parseFloat(document.getElementById('txtValorCambio').value).toFixed(2);
 
     resultadoCambio = flCantidad * flPrecio * flValorCambio;
     resultadoCosto = parseFloat((resultadoCambio * (flIVA / 100)) + resultadoCambio);
+    montIVA = parseFloat(resultadoCambio * (flIVA / 100));
 
-    console.log("Resultado Cambio:");
-    console.log(resultadoCambio.toFixed(2));
-    console.log("Resultado Costo");
-    console.log(resultadoCosto.toFixed(2));
 
     flTotal.value = resultadoCosto.toFixed(2);
   }
@@ -344,9 +344,13 @@
   function cleanConcept(){
     $("#addConcepto").modal('hide');
     document.getElementById("txtConcepto").value= '';
-    document.getElementById("txtCant").value = 1;
-    document.getElementById("flPrecio").value= '';
-    document.getElementById("txtIVA").value = '';
+    document.getElementById("txtMoneda").value= '';
+
+    document.getElementById('txtCant').value = 1;
+    document.getElementById('flPrecio').value = 1.00;
+    document.getElementById('txtIVA').value = 0.00;
+    document.getElementById('txtValorCambio').value = 1.00;
+    flTotal.value = '';
 
 
   }
@@ -356,42 +360,29 @@
   var listConcepts = [];
   
   function addCheckElement(data){
-
-    let item ={};
-    let conc = document.getElementById("txtConcepto").value;
-    let cant = document.getElementById("txtCant").value;
-    let prec = document.getElementById("flPrecio").value;
-    let iva = document.getElementById("txtIVA").value ;
-    //
-    item.txtConc = conc;
-    item.eCant = cant;
-    item.flprec = prec;
-    item.fliva = iva;
-
-    var subtotNoIVA = 0;
-    var subtIVA = 0;
-    let sbTot = parseFloat(item.flprec) * parseFloat(item.eCant);
-    item.sbTot = sbTot.toFixed(2);
-    subtotNoIVA = parseFloat(item.sbTot) + parseFloat(subtotNoIVA);
-    item.subtotNoIVA = subtotNoIVA.toFixed(2);
-
-    let res = parseFloat(item.sbTot) * (parseFloat(item.fliva)/100);
-    item.res = res.toFixed(2);
-    subtIVA = parseFloat(item.res) + parseFloat(subtIVA);
-    item.subtIVA = subtIVA.toFixed(2);
-    let impConc =  parseFloat(item.flprec) + parseFloat(item.res);
-    item.impConc = impConc.toFixed(2);
-
-
-    totCotizacion = parseFloat(totCotizacion).toFixed(2);
-    totCotizacion = parseFloat(item.impConc) +parseFloat(totCotizacion);
-    item.totCotizacion = parseFloat(totCotizacion).toFixed(2);
-
+    let item = {};
+    let txtConcepto = document.getElementById("txtConcepto").value;
+    let flCantidad = document.getElementById('txtCant').value;
+    let flPrecio = document.getElementById('flPrecio').value;
+    let flIVA = document.getElementById('txtIVA').value;
+    let flValorCambio = document.getElementById('txtValorCambio').value;
+    let txtMoneda = document.getElementById('txtMoneda').value;
+    /*AJUSTAR QUE SE PUEDA VALIDAR SI NO ESTÁN EN BLANCO...*/
+    item.montIVA = montIVA;
+    item.txtMoneda = txtMoneda;
+    item.txtConcepto = txtConcepto;
+    item.flTotal = flTotal.value;
+    item.flCantidad = flCantidad;
+    item.flPrecio = flPrecio;
+    item.flIVA = flIVA;
+    item.flValorCambio = flValorCambio;
+  
 
 
 
     
     listConcepts.push(item);
+    
     
     fillTable(listConcepts);
     cleanConcept();
@@ -418,7 +409,6 @@ let val = 0;
     
     totCotizacion = totCotizacion.toFixed(2);
 
-    console.log(totCotizacion);
 
     fillTable(listConcepts);
     
@@ -430,36 +420,43 @@ function fillTable(data){
   var itemtb= " ";
   listCheck.innerHTML = itemtb;
   var numItb = 1;
+  console.log(data);
+
   for(var dato of data){
     
-
-
-    var cad =  "<strong>Cantidad:</strong>" +dato.eCant + "<br><strong> Precio:</strong>" + dato.flprec + "<br><strong>IVA:</strong>" + dato.fliva;
-
       itemtb += "<tr>";
 
         itemtb += "<td>";
-          itemtb += dato.eCant ;
+          itemtb += dato.flCantidad ;
         itemtb += "</td>";
 
         itemtb += "<td>";
-          itemtb += dato.txtConc;
+          itemtb += dato.txtConcepto;
         itemtb += "</td>";
 
         itemtb += "<td title='Precio Unitario'>";
-          itemtb += parseFloat(dato.flprec).toFixed(2);
+          itemtb += parseFloat(dato.flPrecio).toFixed(2);
         itemtb += "</td>";
 
         itemtb += "<td title='Porcentaje correspondiente de IVA'>";
-          itemtb += parseFloat(dato.fliva).toFixed(2);
+          itemtb += parseFloat(dato.flIVA).toFixed(2);
         itemtb += "</td>";
 
         itemtb += "<td title='Monto monetario correspondiente de IVA'>";
-          itemtb += dato.res; 
+          itemtb += parseFloat(dato.montIVA).toFixed(2); 
         itemtb += "</td>";
 
         itemtb += "<td>";
-          itemtb += dato.impConc; 
+          itemtb += dato.txtMoneda; 
+        itemtb += "</td>";
+
+        itemtb += "<td>";
+          itemtb += parseFloat(dato.flValorCambio).toFixed(2); 
+        itemtb += "</td>";
+
+
+        itemtb += "<td>";
+          itemtb += parseFloat(dato.flTotal).toFixed(2); 
         itemtb += "</td>";
 
         itemtb += "<td>";
