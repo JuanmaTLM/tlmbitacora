@@ -16,7 +16,6 @@
 		       <th>Nombre/Razón Social</th>
 		       <th>RFC</th>
 		       <th>Datos de Contacto</th>
-		       <th>Dirección</th>
 		       <th>Acciones</th>
 		     </tr>
 		   </thead>
@@ -34,7 +33,7 @@
  			  <td><?php echo $i; ?></td>
  			  <td><?php
 
- 			  		if($client['Tipo'] == 1){
+ 			  		if($client['Tipo'] == 0){
  			  			echo $client['NombreCompleto'];
  			  		}else{
  			  			echo $client['txtRazonSocial'];
@@ -56,43 +55,9 @@
  			  	</div>
 
  			  </td>
- 			  <td><button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#contactDir_<?php echo $i; ?>">Dirección</button>
- 			  <div id="contactDir_<?php echo $i; ?>" class="collapse">
-		  		<div class="d-flex flex-wrap justify-content-start flex-column">
-		  			<div >
-		  				<label class="info"><strong>Calle:</strong> <?php echo $client['Calle'] ?></label>
-		  			</div>
-		  			<div >
-		  				<label class="info"><strong>Colonia:</strong> <?php echo $client['Colonia'] ?></label>
-		  			</div>
-		  			<div >
-		  				<label class="info"><strong>#_Exterior:</strong> <?php echo $client['NumExt'] ?></label>
-		  			<?php if($client['NumInt'] != '' || $client['NumInt'] != NULL){ ?>
-		  				<label class="info"><strong>#Interior:</strong> <?php echo $client['NumInt'] ?></label>
-		  			<?php } ?>
-		  			</div>
-		  			<div>
-		  				<label class="info"><strong>CodigoPostal:</strong> <?php echo $client['CodigoPostal'] ?></label>
-		  			</div>
-		  			<div >
-		  				<label class="info"><strong>Ciudad:</strong> <?php echo $client['Ciudad'] ?></label>
-		  			</div>
-		  			<div >
-		  				<label class="info"><strong>Estado:</strong> <?php echo $client['Estado'] ?></label>
-		  			</div>
-		  			<div >
-		  				<label class="info"><strong>Pais:</strong> <?php echo $client['Pais'] ?></label>
-		  			</div>
-		  			
-		  		</div>
-		  	</div>	
-			  </td>
+ 			  
  			  <td>
- 			  	<?php if($client['EstatusC'] == 1){ ?>
- 			  		<button type="button" class="btn btn-outline-primary"><i class='fas fa-eye'></i></button>
- 			  	<?php }else{ ?>
- 			  		<button type="button" class="btn btn-outline-warning"><i class='far fa-eye-slash'></i></button>
- 			  	<?php 	} ?>
+ 			  		<button type="button" class="btn btn-outline-primary" onclick="verCliente('<?php echo $client['RFC']; ?>');">Ver Información Completa</button>
 
  			  </td>
  			</tr>
@@ -136,6 +101,7 @@
     	});
 
 	} );
+
 </script>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />

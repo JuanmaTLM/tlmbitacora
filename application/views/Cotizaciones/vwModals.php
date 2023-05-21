@@ -29,16 +29,114 @@
               </li>
             </ul>
         </div>
-    <form id="frmCotizacion">
+    
+        
+       <form id="frmCotizacion">
           <div class="p-2 bg-white  d-flex flex-wrap tab-content">
+            
 <!-- Datos Cliente-->
             <div class="tab-pane container active " id="datosCliente">
+              <div class="d-flex flex-wrap justify-content-end">
+                
+                    <div>
+                      <input class="form-control" type="text" id="searchInput" placeholder="Buscar...">
+                    </div>
+                    <div>
+                      <select id="resultsList" name="resultsList" class="form-control" onchange="fillInputs(this.value);">
+                        <option value="0">Buscar Cliente </option>
+                      </select>
+                    </div>
+                    
+                    <script>
+                        let client ={};
+                        $(document).ready(function() {
 
+                            $('#searchInput').on('input', function() {
+                                var searchTerm = $(this).val();
+
+                                $.ajax({
+                                    url: '<?php echo site_url('searchData'); ?>',
+                                    method: 'GET',
+                                    data: { term: searchTerm },
+                                    dataType: 'json',
+                                    success: function(response) {
+                                        var resultList = document.getElementById('resultsList');
+                                        resultList.innerHTML = "<option value = '0'> Seleccione Cliente</option>";
+                                        var options = '';
+                                        if (response.length > 0 ) {
+                                            $.each(response, function(index, item) {
+                                              if(item.Tipo == 0){
+                                                options += "<option value = " + item.RFC + ">" + item.NombreCompleto + "</option>";
+                                              }
+                                              if(item.Tipo == 1){
+                                                options += "<option value = " + item.RFC + ">" + item.txtRazonSocial + "</option>";
+                                              }
+                                            });
+                                            resultList.innerHTML += options;
+                                        } else {
+                                          resultList.innerHTML = "<option value = '0'> No Está registrado el Cliente</option>";
+                                            
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                        function fillInputs(txtRFC){
+                          let tRFC = document.getElementById('txtRFC');
+                          let tNombre = document.getElementById('txtNombre');
+                          let tMail = document.getElementById('txtMail');
+                          let tPhone = document.getElementById('txtPhone');
+                          if(txtRFC != 0){
+                            tRFC.disabled = true; 
+                            tNombre.disabled = true;
+                            tMail.disabled = true;
+                            tPhone.disabled = true;
+                            $.ajax({
+                                url: '<?php echo site_url('searchData'); ?>',
+                                method: 'GET',
+                                data: { term: txtRFC },
+                                dataType: 'json',
+                                success: function(response) {
+                                    if (response.length == 1 ) {
+                                        $.each(response, function(index, item) {
+                                          tRFC.value = item.RFC; 
+                                          if(item.Tipo == 0){
+                                            tNombre.value = item.NombreCompleto;
+                                          }
+                                          if(item.Tipo == 1){
+                                            tNombre.value = item.txtRazonSocial;
+                                          }
+                                          tMail.value = item.Email;
+                                          tPhone.value = item.Telefono;
+                                          
+                                        });
+                                    } else {
+                                      alert("Hay más de un registro...");                                
+                                    }
+                                }
+                            });
+                          }else{
+                            tRFC.disabled = false; 
+                            tNombre.disabled = false;
+                            tMail.disabled = false;
+                            tPhone.disabled = false;
+                            tRFC.value = '';
+                            tNombre.value = '';
+                            tMail.value = '';
+                            tPhone.value = '';
+                          }
+                          
+                        }
+                    </script>
+
+              </div>
               <div class="d-flex flex-wrap border-top-0 border-black">
                 
                 <div class="form-group p-2">
                   <label for="txtRFC">RFC:</label>
-                  <input required type="text" class="form-control" name="txtRFC" id="txtRFC" maxlength="13" minlength="10" >
+
+                  <input required type="text" class="form-control" name="txtRFC" id="txtRFC" maxlength="13" minlength="10"  >
+
                 </div>
                 <div class="form-group p-2 flex-fill">
                   <label for="txtNombre">Nombre del Cliente:</label>
@@ -367,25 +465,30 @@
     let flIVA = document.getElementById('txtIVA').value;
     let flValorCambio = document.getElementById('txtValorCambio').value;
     let txtMoneda = document.getElementById('txtMoneda').value;
-    /*AJUSTAR QUE SE PUEDA VALIDAR SI NO ESTÁN EN BLANCO...*/
-    item.montIVA = montIVA;
-    item.txtMoneda = txtMoneda;
-    item.txtConcepto = txtConcepto;
-    item.flTotal = flTotal.value;
-    item.flCantidad = flCantidad;
-    item.flPrecio = flPrecio;
-    item.flIVA = flIVA;
-    item.flValorCambio = flValorCambio;
+    
+    if(txtConcepto != '' && flTotal.value != ''){
+      item.txtConcepto = txtConcepto;
+      item.montIVA = montIVA;
+      item.txtMoneda = txtMoneda;
+      item.txtConcepto = txtConcepto;
+      item.flTotal = flTotal.value;
+      item.flCantidad = flCantidad;
+      item.flPrecio = flPrecio;
+      item.flIVA = flIVA;
+      item.flValorCambio = flValorCambio;
+      listConcepts.push(item);
+      fillTable(listConcepts);
+      cleanConcept();
+    }else{
+      alert("Datos incompletos, favor de completar...");
+    }
+
   
 
 
 
     
-    listConcepts.push(item);
-    
-    
-    fillTable(listConcepts);
-    cleanConcept();
+   
   }
 let val = 0;
   function delCard(idDiv){
@@ -420,6 +523,7 @@ function fillTable(data){
   var itemtb= " ";
   listCheck.innerHTML = itemtb;
   var numItb = 1;
+  let totCotizacion = 0;
   console.log(data);
 
   for(var dato of data){
@@ -472,6 +576,7 @@ function fillTable(data){
       itemtb += "</tr>";
 
       listCheck.innerHTML = itemtb;
+      totCotizacion = totCotizacion + parseFloat(dato.flTotal).toFixed(2);
       numItb++;
       }
       totCoti.innerHTML = parseFloat(totCotizacion).toFixed(2);
@@ -529,8 +634,8 @@ function saveCotizacion(){
 }
 
 function sendData(data){
-
-axios.post("<?php echo site_url('newCotizacion'); ?>" , data.client
+console.log(data);
+axios.post("<?php echo site_url('findCte'); ?>",data.client
       ).then(function(res){
           if (res.status == 200) {
             if(res.data){
@@ -544,3 +649,4 @@ axios.post("<?php echo site_url('newCotizacion'); ?>" , data.client
   
 }
 </script>
+

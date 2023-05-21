@@ -45,10 +45,28 @@ class CotizacionController extends CI_Controller {
 
 
 	public function newCotizacion(){
-		$data = file_get_contents("php://input");
+		echo "aqui voy!";
+		$data = json_decode(file_get_contents("php://input"), true);
 		$result = $this->CotizacionModel->nwCliente($data);
 		print_r($result);
 	}
+
+	public function findCte(){
+		$data = json_decode(file_get_contents("php://input"), true);
+		print_r($data);	
+	}
+
+	public function searchData()
+	    {
+			$this->init('default');
+	        $term = $this->input->get('term'); // Obtener el término de búsqueda desde la URL
+
+	        // Realizar la consulta a la base de datos utilizando el término de búsqueda
+	        $results = $this->db->like('RFC', $term)->get('vwallclients')->result();
+
+	        // Devolver los resultados en formato JSON
+	        echo json_encode($results);
+	    }
 
 }
  

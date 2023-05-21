@@ -25,7 +25,9 @@ class CotizacionModel extends CI_Model
 	}
 
 	public function nwCliente($data){
-		$this->init('cotizaciones');
+		return $data;
+		
+		/*$this->init('cotizaciones');
 		$limit = 10;
 		$offset= 10;
 		$eId = 0;
@@ -36,7 +38,7 @@ class CotizacionModel extends CI_Model
 
 		//$query = $this->db->get_where('catclientes', array('txtRFC' => $data['txtRFC']), $limit, $offset);
 
-		$this->db->select('eIdCliente');
+		/*$this->db->select('eIdCliente');
 		$this->db->from('catclientes');
 		$this->db->where('txtRFC',  $data->txtRFC);
 		$query = $this->db->get();
@@ -49,7 +51,7 @@ class CotizacionModel extends CI_Model
 			}else{
 				return false;
 			}
-		}
+		}*/
 
 
 	}	

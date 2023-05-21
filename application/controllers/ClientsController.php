@@ -14,9 +14,9 @@ class ClientsController extends CI_Controller {
 
 		$this->load->view('Template/head');
 		$this->load->view('Template/Menu');
+		$this->load->view('Clientes/modNewCte');
 		$this->load->view('Template/changePass');
 		$this->load->view('Clientes/vwPpalCtes');
-		$this->load->view('Clientes/modNewCte');
 		if(!$info['allClients']){
 			$this->load->view('Clientes/vwListaClientes');
 		}else{
@@ -42,9 +42,15 @@ class ClientsController extends CI_Controller {
 			}
 		}
 		else{
-
+			return false;
 		}
-
 	}
-
+	
+	public function udtClient(){
+		$result = $this->ClientsModel->udtClient();
+		//echo $result;
+		if($result){
+			$this->index();
+		}
+	}
 }

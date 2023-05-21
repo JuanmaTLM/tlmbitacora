@@ -79,7 +79,8 @@ $route['resetPass'] = 'ControllerUsers/resetPass';
 
 $route['dashboard'] = 'cdashboard';
 
-
+$route['searchData'] = 'CotizacionController/searchData';
+$route['findCte'] = 'CotizacionController/findCte';
 $route['cotizaciones'] = 'CotizacionController';
 $route['newCotizacion'] = 'CotizacionController/newCotizacion';
 $route['getCotizaciones'] = 'CotizacionController/getCotizaciones';
@@ -105,6 +106,7 @@ INICIO CLIENTES
 $route['allClients'] = 'ClientsController';
 $route['fillClients'] = 'ClientsController/fillClients';
 $route['addClient'] = 'ClientsController/addClient';
+$route['udtClient'] = 'ClientsController/udtClient';
 
 
 

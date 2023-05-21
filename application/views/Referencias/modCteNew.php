@@ -12,7 +12,7 @@
       <!-- Modal body -->
       <div class="modal-body">
        
-       <form action="<?php echo site_url('addClientRef'); ?>" method="POST" id="frmNewCte">
+       <form action="<?php echo site_url('addClient'); ?>" method="POST" id="frmNewCte">
 
        	<div class="d-flex flex-wrap justify-content-center flex-container flex-column">
        		<div class="d-flex flex-wrap justify-content-center">
@@ -240,4 +240,7 @@
 
 
   }
+
+ 
+  
 </script>
