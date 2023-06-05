@@ -6,7 +6,7 @@ date_default_timezone_set('America/Monterrey');
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title id="titulo"></title>
+	<title id="tituloSite"></title>
 
 
 	<!-- Latest compiled and minified CSS -->
@@ -89,6 +89,8 @@ date_default_timezone_set('America/Monterrey');
   }
 
 </style>
-
+<script type="text/javascript">
+	let titSite = document.getElementById('tituloSite');
+</script>
 <body >
 	<section id="principal" >

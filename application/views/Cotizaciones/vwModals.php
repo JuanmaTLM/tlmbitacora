@@ -25,7 +25,11 @@
               </li>
              
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#mercaData">Datos Conceptos</a>
+                <a class="nav-link" data-toggle="tab" href="#mercaData">Datos Gastos</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#transporte">Datos Transporte</a>
               </li>
             </ul>
         </div>
@@ -192,9 +196,10 @@
                 
                 <div class="form-group p-2 ml-auto">
                   <button type="button" class="btn btn-outline-success btn-md" onclick="openConcepts();">
-                    <span class="fa fa-plus"></span>
+                    Agregar Servicio
                   </button>
                 </div>
+                
                 
               </div>
   
@@ -228,8 +233,139 @@
               </div>
 
             </div>
+<!-- Datos Transporte-->
 
+            <div class="tab-pane container fade" id="transporte">
+               <div class="" id="origenDestino">
+               
+                 <div class=" ml-3 d-flex flex-wrap justify-content-center " >
+                   <div class="p-1 form-group flex-fill">
+                     <label for="txtTipoTransporte">Tipo Transporte:</label>
+                     <select type="text" class="form-control"  name="trTipoTransporte" id="trTipoTransporte" >
+                         <option value="0">Seleccionar opción</option>
+                         <option value="AER">Aéreo</option>
+                         <option value="FRV">Ferroviario</option>
+                         <option value="MAR">Marítimo</option>
+                         <option value="TER">Terrestre</option>
+                        </select>
+                     </div>
+                   <div class="p-1 form-group flex-fill">
+                       <label for="txtOrigen">Origen:</label>
+                       <input type="text" class="form-control"  name="trOrigen" id="trOrigen" list="origenList">
+                     
+                   </div>  
+                   <div class="p-1 form-group flex-fill">
+                       <label for="txtDestino">Destino:</label>
+                       <input type="text" class="form-control"  name="trDestino" id="trDestino" list="origenList">
+                   </div>  
+                   <div class="p-1 form-group ">
+                     <label for="txtDistancia">Distancia:</label>
+                     <input type="text" class="form-control" name="trDistancia" id="trDistancia" disabled>
+                   </div>
+                   <datalist id="origenList">
+                       <option value="MZO">Manzanillo</option>
+                       <option value="COL">Colima</option>
+                       <option value="VCZ">Veracruz</option>
+                       <option value="CMX">Cd. de México</option>
+                       <option value="ALT">Altamira</option>
+                       <option value="GDL">Guadalajara</option>
+                     </datalist>
+                 </div>
+               </div>
+               <div id="Contenedor">
+                 <div  class="ml-3 d-flex flex-sm-wrap justify-content-start ">
+                   <div class="p-1 form-group flex-fill">
+                       <label for="txtMercancia">Mercancía:</label>
+                       <input type="text" class="form-control" name="trMercancia" id="trMercancia">
+                     
+                   </div>  
+                   <div class="p-1" style="margin-right : 50%"></div>
+                 </div>
+                 <div  class="ml-3 d-flex flex-sm-wrap justify-content-center">
+
+                   <div class="p-1 bg-light   flex-fill">
+                     <div class="form-group">
+                       <label for="txtConceptoT">Concepto:</label>
+                       <input type="text" class="form-control"  name="trConceptoT" id="trConceptoT">
+                     </div>
+                   </div>
+                   <div class="p-1">
+                     <div class="form-group  ">
+                       <label for="txtTipo">Tipo:</label>
+                       <input type="text" class="form-control" name="trTipo" id="trTipo">
+                     </div>
+                   </div>
+
+                   <div class="p-1">
+                     <div class="form-group  ">
+                       <label for="txtTamaño">Tamaño:</label>
+                       <input type="text" class="form-control" name="trTamaño" id="trTamaño">
+                     </div>
+                   </div>
+                 </div>
+                 <div  class="ml-3 d-flex flex-nowrap justify-content-around">
+
+                   <div class="p-1">
+                     <div class="form-group  ">
+                       <label for="txtPeso">Peso:</label>
+                       <input type="text" class="form-control" name="trPeso" id="trPeso">
+                     </div>
+                   </div>
+                   <div class="p-1">
+                     <div class="form-group">
+                       <label for="txtMedida">Medida:</label>
+                       <input type="text" class="form-control" name="trMedida" id="trMedida">
+                     </div>
+                   </div>
+                   <div class="p-1">
+                     <div class="form-group ">
+                       <label for="txtBultos">Bultos:</label>
+                       <input type="text" class="form-control" name="trBultos" id="trBultos">
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <div  id="Transporte">
+               
+                 <div class="ml-3 d-flex flex-wrap justify-content-start">
+                   <div class="p-1 form-group flex-fill">
+                     <label for="txtMedida">Proveedor del Servicio:</label>
+                     <select type="text" class="form-control" name="txtTransporte" id="txtTransporte">
+                     
+                       <option value="Navarro">Navarro</option>
+                       <option value="Aguilera Express">Aguilera Express</option>
+                       <option value="RCTrucking">RCTrucking</option>
+                       <option value="Grupo Uttsa">Grupo Uttsa</option>
+                       <option value="Bayardo">Bayardo</option>
+                     </select>
+                   </div>
+                   <div class="p-1" style="margin-right: 50%;"></div>
+
+                 </div>
+                 <div class="d-flex flex-wrap  justify-content-center">
+                   <div class="p-1 form-group ">
+                     <label for="txtPrecio">Precio del Flete:</label>
+                     <input type="text" name="trPrecio" id="trPrecio" >
+                   </div>
+                 </div>
+                 <div class="d-flex flex-wrap  justify-content-center">
+                   <div class="p-1 form-group ">
+                     <label for="txtPagoOperador">Pago del Operador:</label>
+                     <input type="text" name="trPagoOperador" id="trPagoOperador"  title="El pago del operador puede variar">
+                   </div>
+                 </div>
+                 
+                 <div class="d-flex flex-wrap  justify-content-center">
+                   <div class="p-1 form-group ">
+                     <label for="txtTotal">Total:</label>
+                     <input type="text" name="trTotal" id="trTotal"  title="Total del servicio de Transporte">
+                   </div>
+                 </div>
+               </div>
+           </div>
+                       
          </div>
+         
       </div>
       <div class="modal-footer d-flex flex-wrap justify-content-around ">
         <button type="button" class="btn btn-outline-success" onclick="saveCotizacion();">Guardar</button>
@@ -249,7 +385,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Nuevo Concepto</h4>
+        <h4 class="modal-title">Nuevo Servicio</h4>
         
       </div>
 

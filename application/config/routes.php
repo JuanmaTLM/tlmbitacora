@@ -164,9 +164,13 @@ $route['findContainerMerca'] = 'creferencias/findContainerMerca';
 $route['changeStatusCont'] = 'creferencias/setStatusCont';
 
 
+$route['dashboardReferences'] = 'creferencias/dabRefs';
 
 
+/*PREVIO*/
 
+$route['previo'] = 'CPrevio';
+$route['uploadImages'] = 'CPrevio/uploadImages';
 
 
 

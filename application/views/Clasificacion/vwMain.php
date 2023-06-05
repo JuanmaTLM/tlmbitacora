@@ -30,6 +30,9 @@
 		</div> 
 		<div class="p-2 mb-3 mt-2 rounded card">
 			<button type="button" class="btn btn-outline-primary" onclick="goclasGlosa();">Clasificación de Mercancías</button>
+		</div>
+		<div class="p-2 mb-3 mt-2 rounded card">
+			<button type="button" class="btn btn-outline-warning" onclick="previo();">Previo</button>
 		</div> 
 	</div>
 	<div class="d-flex flex-wrap justify-content-between flex-column flex-container bg-white">
@@ -45,5 +48,10 @@
 	function goclasGlosa(){
 		var url = "<?php echo site_url('mercaRefe') ?>";
 		window.location.href = url +  "?cveReferencia="+cveRefMerca+"&eIdReferencia="+idRefMerca; 
+	}
+
+	function previo(){
+		var url = "<?php echo site_url('previo') ?>";
+		window.location.href = url +  "?cveReferencia="+cveRefMerca+"&eIdReferencia="+idRefMerca;
 	}
 </script>

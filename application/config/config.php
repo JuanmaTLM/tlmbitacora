@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/tlmBitacora/';
 
-//$config['base_url'] = 'http://192.168.100.27/tlmBitacora/';
+//$config['base_url'] = 'http://192.168.0.105/tlmBitacora/';
 //$config['base_url'] = 'http://192.168.100.30/tmlBitacora/';
 
 /*

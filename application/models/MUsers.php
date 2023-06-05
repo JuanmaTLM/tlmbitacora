@@ -152,7 +152,7 @@ public function postUser($data){
 
 	public function resetPass($data){
 		$query = "CALL resetPass(".$data['userId'].");";
-		return $query;
+		//return $query;
 		$result = $this->db->query($query);
 
 		if($result){

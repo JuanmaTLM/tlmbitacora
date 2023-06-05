@@ -158,6 +158,7 @@
 		axios.post("<?php echo site_url('resetPass') ?>",data).then(
 		  function(res){
 		        if (res.status == 200) {
+		        	alert(res.data);
 		        	console.log(res.data);
 		          if(res.data == 1){
 		          	alert("Contraseña Generada Correctamente!")

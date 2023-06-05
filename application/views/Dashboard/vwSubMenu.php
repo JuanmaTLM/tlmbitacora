@@ -43,6 +43,11 @@
 		</form>
 	</div>
 
+	<div class="m-2 " id="mnuClientes">
+		<form action="<?php echo site_url('dashboardReferences') ?>" method="POST">
+			<button type="submit" class="btn btn-lg btn-outline-dark">Pantallas</button>
+		</form>
+	</div>
 
 </div>
 
