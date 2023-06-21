@@ -11,7 +11,7 @@
 <div class="d-flex flex-wrap justify-content-center flex-column flex-container bg-white">
 	<div class="d-flex flex-wrap justify-content-around bg-info p-2 rounded">
 		<div>
-			<a href="<?php echo site_url('listRef'); ?>" class="btn btn-outline-light"> Regresar </a>
+			<a href="<?php echo site_url('dashboard'); ?>" class="btn btn-outline-light"> Regresar </a>
 		</div>
 		<div class="d-flex flex-wrap justify-content-end ">
 			<div>

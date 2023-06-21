@@ -1,7 +1,7 @@
 
 
 <script type="text/javascript">
-	document.getElementById('titulo').innerHTML = "Listado de Referencias";
+	document.getElementById('titulo').value = "Listado de Referencias";
 </script>
 
 <style type="text/css">

@@ -14,28 +14,48 @@ class CReferencias extends CI_Controller {
 		$userId = $_SESSION['user']['userId'];
 		$info['allCtes'] = $this->MReferencias->allCtesRef();
 		if($userType >= 7){
-		$ref['allReferencias'] = $this->MReferencias->refsAsigned($userId);
+		//$ref['allReferencias'] = $this->MReferencias->refsAsigned($userId);
+		$info['allReferencias'] = $this->MReferencias->refsAsigned($userId);
 
 		}else{
-			$ref['allReferencias'] = $this->MReferencias->allRefs();
+			//$ref['allReferencias'] = $this->MReferencias->allRefs();
+			$info['allReferencias'] = $this->MReferencias->allRefs();
 
 		}
-		$ref['allCtes'] = $this->MReferencias->allCtesRef();
+		//$ref['allCtes'] = $this->MReferencias->allCtesRef();
+		$info['allCtes'] = $this->MReferencias->allCtesRef();
 		
 
 
 		$this->load->view('Template/head');
 		$this->load->view('Template/Menu');
 		$this->load->view('Template/changePass');
-		$this->load->view('Referencias/vwHeadRefs');
-		$this->load->view('Referencias/vwListRef',$ref);
-		$this->load->view('Referencias/modCteNew');
-		$this->load->view('Referencias/vwAllRef');
-		$this->load->view('Referencias/vwReferencias',$info);
-		$this->load->view('Referencias/modAsignar');
+		$this->load->view('Referencias/complete',$info);
+		//$this->load->view('Referencias/vwHeadRefs');
+		//$this->load->view('Referencias/vwListRef',$ref);
+		//$this->load->view('Referencias/modCteNew');
+		//$this->load->view('Referencias/vwAllRef');
+		//$this->load->view('Referencias/vwReferencias',$info);
+		//$this->load->view('Referencias/modAsignar');
 		
 		$this->load->view('Template/footer');
 	}
+
+	// ----------- Creación de método para paginar tabla  ------------------------------
+
+	public function getAll() {
+	  $config['base_url'] = base_url() . 'tu_controlador/tu_metodo';
+	  $config['total_rows'] = $this->tu_modelo->total_registros();
+	  $config['per_page'] = 10;
+
+	  $this->pagination->initialize($config);
+
+	  $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+	  $datos['registros'] = $this->tu_modelo->obtener_registros_paginados($config['per_page'], $page);
+
+	  $this->load->view('tu_vista', $datos);
+	}
+	//----------------------------------------------------------------------------------
 
 	function findUserAssigned(){
 		$data = json_decode(file_get_contents("php://input"), true);
