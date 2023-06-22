@@ -111,7 +111,7 @@
 		  <div class="tab-pane container" id="servicios">
 		  	<div class="d-flex flex-wrap justify-content-end">
 		  		<div class="p-2">
-		  			<button type="button" class="btn btn-outline-primary btn-md" data-toggle="modal" data-target="#newService">Nuevo Servicio</button>
+		  			<button type="button" class="btn btn-outline-primary btn-md" data-toggle="modal" data-target="#newService" onclick="disabledBtn();">Nuevo Servicio</button>
 		  		</div>
 		  	</div>
 		  	<div class="d-flex flex-wrap justify-content-center flex-column">
@@ -143,6 +143,7 @@
 		  		  					echo "<td>";
 		  		  			?>		
 		  		  				<button type="button"   class="btn btn-outline-warning" onclick="delService('<?php echo $service->idServicio; ?>')">Borrar</button>
+		  		  				<button type="button"   class="btn btn-outline-primary" onclick="edService('<?php echo $service->idServicio; ?>')">Editar</button>
 		  					<?php 
 
 		  		  					echo "</td>";
@@ -287,12 +288,34 @@ NEW SERVICE MODAL
       <div class="modal-footer">
       	<div class="container clearfix">
 	        <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal" onclick="resetInputs();">Cancelar</button>
-	        <button type="button" class="btn btn-outline-success float-left" onclick="addService(<?php echo $provider[0]->IdProveedor; ?>);">Guardar</button>
+	        <button type="button" class="btn btn-outline-success float-left" onclick="addService(<?php echo $provider[0]->IdProveedor; ?>);" id="btnNewService">Guardar</button>
+	        <button type="button" class="btn btn-outline-primary float-left" onclick="editService(this.value);" id="btnEditService">Guardar</button>
 	    </div>
     </div>
   </div>
 </div>
+
+
+
  <script type="text/javascript">
+ 	let btnNewService= document.getElementById('btnNewService');
+ 	let btnEditService = document.getElementById('btnEditService');
+
+ 	function disabledBtn(){
+ 		if(btnNewService.style.display = 'none')
+ 			btnNewService.style.display = 'block';
+ 		if(btnEditService.style.display = 'block')
+ 			btnEditService.style.display = 'none';
+
+ 	}
+
+ 	function enabledBtn(){
+ 		if(btnNewService.style.display = 'block')
+ 			btnNewService.style.display = 'none';
+ 		if(btnEditService.style.display = 'none')
+ 			btnEditService.style.display = 'block';
+
+ 	}
 
  	const btnEditProvider = document.getElementById('btnEditP');
  	const btnSaveProvider = document.getElementById('btnSaveP');
@@ -529,7 +552,46 @@ NEW SERVICE MODAL
 	let txtServicio = document.getElementById('txtServicio');
 	let txtDescripcion = document.getElementById('txtDescripcion');
 	let txtPrecio = document.getElementById('txtPrecio');
-
+	function editService(id){
+		let obj = {};
+		obj.eId = id;
+		obj.txtServicio = txtServicio.value;
+		obj.txtDescripcion = txtDescripcion.value;
+		obj.txtPrecio = txtPrecio.value;
+		axios.post("<?php echo site_url('editService'); ?>" ,obj).then(
+			function(res){
+	          if (res.status == 200) {
+	            if(res.data){
+		            alert("Servicio Actualizado Correctamente!");
+		            window.location.reload();
+		        }
+	          }
+      	}).catch(function(err){
+          alert(err);
+          console.log(err);
+      	});
+	}
+	function edService(id){
+		let obj = {};
+		obj.eIdService = id;
+		axios.post("<?php echo site_url('findService'); ?>" ,obj).then(
+			function(res){
+	          if (res.status == 200) {
+	            if(res.data){
+	            	enabledBtn();
+	            	let data = res.data;
+	            	btnEditService.value = data.eIdService;
+	            	txtServicio.value=data.txtService;
+	            	txtDescripcion.value =data.txtDescription;
+	            	txtPrecio.value =data.flPrice;
+	            	$('#newService').modal('show');
+	            }
+	          }
+      	}).catch(function(err){
+          alert(err);
+          console.log(err);
+      	});
+	}
 	function resetInputs(){
 		txtServicio.value = '';
 		txtDescripcion.value = '';

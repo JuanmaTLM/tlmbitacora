@@ -385,4 +385,31 @@ class ProvidersModel extends CI_Model
 		else
 			return false;
 	}
+
+	function findService($data){
+		$data = json_decode($data);
+		$query = "SELECT  eIdService, txtService, txtDescription, flPrice FROM serviceslist WHERE eIdService = $data->eIdService;";
+		$result = $this->db->query($query);
+		if($result)
+			return $result->result_array();
+		else
+			return false;
+	}
+
+	function editService($data){
+		$date = date("Y-m-d h:i:s");
+		$data = json_decode($data);
+
+		$id = $data->eId;
+		$service = $data->txtServicio;
+		$description = $data->txtDescripcion;
+		$price = $data->txtPrecio;
+		//$data = json_decode($data);
+		$query = "UPDATE serviceslist SET txtService='$service',txtDescription='$description',flPrice='$price',feUpdatedAt='$date' WHERE eIdService = $id";
+		$result = $this->db->query($query);
+		if($result)
+			return true;
+		else
+			return false;
+	}
 }

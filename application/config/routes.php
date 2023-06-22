@@ -99,7 +99,8 @@ $route['getProviderData'] = 'ProvidersController/getProviderData';
 $route['editProvider'] = 'ProvidersController/editProvider';
 $route['addService'] = 'ProvidersController/addService';
 $route['delService'] = 'ProvidersController/delService';
-
+$route['findService'] = 'ProvidersController/findService';
+$route['editService'] = 'ProvidersController/editService';
 
 /*
 INICIO CLIENTES
