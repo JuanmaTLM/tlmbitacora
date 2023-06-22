@@ -79,7 +79,11 @@ class CPrevio extends CI_Controller {
 
  public function getImages($cveRef) {
      // Obtener la lista de imágenes en la carpeta
+
      $imagePath = './assets/DCTOSREFERENCIAS/'.$cveRef.'/Previo/';
+     if (!is_dir($imagePath)) {
+       mkdir($imagePath, 0755, true);
+     }
      $images = scandir($imagePath);
      $images = array_diff($images, array('.', '..')); // Eliminar los directorios "." y ".."
      

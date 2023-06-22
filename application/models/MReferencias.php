@@ -96,6 +96,56 @@ class MReferencias extends CI_Model
 
 	public function newReference(){
 		$this->init('default');
+			/*$query1 = "SELECT MAX(eIdReferencia) as id FROM catreferencias";
+			$result1 = $this->db->query($query1);
+			$res = $result1->result_array();
+			$cve = "TLMB23-" . $res[0]['id'];
+		    
+		        // Directorio de destino en el servidor remoto
+		        //$targetDir = 'ftp://tracinglogisticsmzo.com/public_html/REFERENCIAS/'.$cve;
+		    $ftpServer = 'ftp://212.1.209.31'; // Dirección del servidor FTP
+		    $ftpUsername = 'u573363820.tlmBitacora'; // Nombre de usuario FTP
+		    $ftpPassword = '@dm1n7ML23'; // Contraseña FTP
+		    $ftpPort = 21; // Puerto FTP (generalmente 21)
+		    $ftpDirectory = '/home/u573363820/domains/tracinglogisticsmzo.com/public_html/REFERENCIAS/'.$cve.'/'; // Ruta de la carpeta de destino en el servidor FTP
+
+		    // Verificar si se seleccionó un archivo
+		    if(isset($_FILES['dctoBL']) && $_FILES['dctoBL']['name'] != '') {
+		        $localFile = $_FILES['dctoBL']['tmp_name']; // Ruta temporal del archivo en el servidor local
+		        $fileName = "BL_".$cve;
+		        // Crear una conexión FTP
+	            $ftpConnection = ftp_connect($ftpServer, $ftpPort);
+	            if (!$ftpConnection) {
+	                die('No se pudo conectar al servidor FTP');
+	            }
+
+		        // Iniciar sesión en el servidor FTP
+		        $ftpLogin = ftp_login($ftpConnection, $ftpUsername, $ftpPassword);
+		        if (!$ftpLogin) {
+		            die('No se pudo iniciar sesión en el servidor FTP');
+		        }
+
+		        // Crear el directorio en el servidor remoto
+		        if (ftp_mkdir($ftpConnection, $ftpDirectory)) {
+		            echo 'Se ha creado la carpeta correctamente en el servidor remoto.';
+		        } else {
+		            echo 'Ha ocurrido un error al crear la carpeta en el servidor remoto.';
+		        }
+
+		        // Subir el archivo al servidor FTP
+		        if (ftp_put($ftpConnection, $ftpDirectory . basename($_FILES['dctoBL']['name']), $localFile, FTP_BINARY)) {
+		            echo 'El archivo se ha subido correctamente al servidor FTP.';
+		        } else {
+		            echo 'Ha ocurrido un error al subir el archivo al servidor FTP.';
+		        }
+
+		        // Cerrar la conexión FTP
+		        ftp_close($ftpConnection);
+		    } else {
+		        echo 'No se ha seleccionado ningún archivo para subir.';
+		    }
+
+*/
 
 
 		$fechaCorta = date("Y-m-d");
@@ -163,7 +213,6 @@ class MReferencias extends CI_Model
 		}else{
 			return false;
 		}
-		
 	}
 	public function asignarRef(){
 		$this->init('default');
