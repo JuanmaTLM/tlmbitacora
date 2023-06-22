@@ -111,7 +111,7 @@
 		  <div class="tab-pane container" id="servicios">
 		  	<div class="d-flex flex-wrap justify-content-end">
 		  		<div class="p-2">
-		  			<button type="button" class="btn btn-outline-primary btn-md">Nuevo Servicio</button>
+		  			<button type="button" class="btn btn-outline-primary btn-md" data-toggle="modal" data-target="#newService">Nuevo Servicio</button>
 		  		</div>
 		  	</div>
 		  	<div class="d-flex flex-wrap justify-content-center flex-column">
@@ -130,23 +130,26 @@
 
 		  		  		<?php 
 		  			  		if($services){
+		  			  		  	$i = 1;
 		  		  				foreach($services as $service){
 		  		  					echo "<tr>";
 		  		  			?>		
 		  		  				<form action="#" method="POST">
 		  					<?php 
-		  		  					echo "<td>" . $service->idServicio . "</td>";
+		  		  					echo "<td>" . $i . "</td>";
 		  		  					echo "<td>" . $service->Servicio . "</td>";
 		  		  					echo "<td>" . $service->Descripcion . "</td>";
 		  		  					echo "<td>" . $service->Precio . "</td>";
 		  		  					echo "<td>";
 		  		  			?>		
-		  		  				<button type="button"   class="btn btn-outline-warning" value="">Borrar</button>
+		  		  				<button type="button"   class="btn btn-outline-warning" onclick="delService('<?php echo $service->idServicio; ?>')">Borrar</button>
 		  					<?php 
 
 		  		  					echo "</td>";
 		  		  					echo "</form>";
 		  		  					echo "</tr>";
+
+		  		  					$i++;
 
 		  		  				}
 		  			  	?>		
@@ -240,7 +243,55 @@
 
  	</div>
  
+<!--
+NEW SERVICE MODAL
+-->
+<div class="modal fade" id="newService">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo servicio para <?php echo $provider[0]->Empresa; ?></h4>
+        <button type="button" class="close" data-dismiss="modal" onclick="resetInputs();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body container">
+        <div class="row">
+        	<div class="col-lg-5">
+        		<label for="txtServicio"> Nombre del Servicio:</label>
+        		<div class="input-group mb-3">
+        		  <input type="text" class="form-control  text-left"  id="txtServicio" name="txtServicio">
+        		  
+        		</div>
+        	</div>
+        	<div class="col-lg-5">
+        		<label for="txtDescripcion"> Descripción:</label>
+        		<div class="input-group mb-3">
+        		  <textarea  rows="2" class="form-control text-justify"  id="txtDescripcion" name="txtDescripcion"></textarea>
+        		</div>
+        	</div>
+        	<div class="col-lg-2">
+        		<label for="txtPrecio"> Costo($MNX):</label>
+        		<div class="input-group mb-3">
+        		  <input type="number" min="0.05" step="0.05" class="form-control text-right"  id="txtPrecio" name="txtPrecio" value="0.00">
+        		   
+        		</div>
+        	</div>
+        </div>
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<div class="container clearfix">
+	        <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal" onclick="resetInputs();">Cancelar</button>
+	        <button type="button" class="btn btn-outline-success float-left" onclick="addService(<?php echo $provider[0]->IdProveedor; ?>);">Guardar</button>
+	    </div>
+    </div>
+  </div>
+</div>
  <script type="text/javascript">
 
  	const btnEditProvider = document.getElementById('btnEditP');
@@ -473,6 +524,74 @@
 	          alert(err);
 	          console.log(err);
 	      	});
+	}
+
+	let txtServicio = document.getElementById('txtServicio');
+	let txtDescripcion = document.getElementById('txtDescripcion');
+	let txtPrecio = document.getElementById('txtPrecio');
+
+	function resetInputs(){
+		txtServicio.value = '';
+		txtDescripcion.value = '';
+		txtPrecio.value = '0.00';
+
+	}
+
+	function addService(id){
+		let band = 0;
+		let obj = {};
+		obj.IdProveedor = id;
+		if(txtServicio.value !=''){
+			obj.servicio = txtServicio.value;
+		}else{
+			alert("Completar el nombre del servicio");
+			txtServicio.focus();
+			return;
+		}
+		if(txtDescripcion.value !=''){
+			obj.descripcion = txtDescripcion.value;
+		}else{
+			alert("Completar la descripción del servicio");
+			txtDescripcion.focus();
+			return;
+		}
+		if(txtPrecio.value !='0.00'){
+			obj.precio = txtPrecio.value;
+		}else{
+			alert("Completar el precio del servicio");
+			txtPrecio.focus();
+			return;
+		}
+			axios.post("<?php echo site_url('addService'); ?>" ,obj).then(
+				function(res){
+		          if (res.status == 200) {
+		            if(res.data){
+		            	alert("Servicio Agregado!");
+		             window.location.reload();
+		            }
+		          }
+		      	}).catch(function(err){
+		          alert(err);
+		          console.log(err);
+		      	});
+	}
+	function delService(id){
+		let obj = {};
+		obj.eIdProveedor = id;
+		if(confirm("Desea eliminar el servicio?")){
+			axios.post("<?php echo site_url('delService'); ?>" ,obj).then(
+				function(res){
+		          if (res.status == 200) {
+		            if(res.data){
+		            	alert("Servicio Eliminado!");
+		             window.location.reload();
+		            }
+		          }
+		      	}).catch(function(err){
+		          alert(err);
+		          console.log(err);
+		      	});
+		}
 	}
  </script>
 

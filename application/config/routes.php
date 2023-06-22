@@ -97,6 +97,8 @@ $route['getTypeFletes'] = 'ProvidersController/getTypeFletes';
 $route['getProviders'] = 'ProvidersController/getProviders';
 $route['getProviderData'] = 'ProvidersController/getProviderData';
 $route['editProvider'] = 'ProvidersController/editProvider';
+$route['addService'] = 'ProvidersController/addService';
+$route['delService'] = 'ProvidersController/delService';
 
 
 /*

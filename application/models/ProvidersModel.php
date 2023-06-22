@@ -124,7 +124,7 @@ class ProvidersModel extends CI_Model
 
 		/*START ADDRESS
 
-		UPDATE `dbserviceproviders`.`addresslist` SET `txtOutNumber`='1110' WHERE  `eIdAddress`=1;
+		UPDATE dbserviceproviders.addresslist SET txtOutNumber='1110' WHERE  eIdAddress=1;
 
 		*/
 		if(isset($address->txtStreet)){
@@ -364,5 +364,25 @@ class ProvidersModel extends CI_Model
 		
 		return $result->result_array();
 	}
+
+	function addService($data){
+		$date = date("Y-m-d h:i:s");
+		$data = json_decode($data);
+		$query = "INSERT INTO serviceslist(fk_eIdCompany, txtService, txtDescription, flPrice, bActive, feCreatedAt, feUpdatedAt) VALUES ('$data->IdProveedor','$data->servicio','$data->descripcion','$data->precio',b'1','$date','$date')";
+		$result = $this->db->query($query);
+		if($result)
+			return true;
+		else
+			return false;
+	}
 	
+	function delService($data){
+		$data = json_decode($data);
+		$query = "DELETE FROM serviceslist WHERE eIdService = $data->eIdProveedor;";
+		$result = $this->db->query($query);
+		if($result)
+			return true;
+		else
+			return false;
+	}
 }

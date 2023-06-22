@@ -39,6 +39,20 @@ class ProvidersController extends CI_Controller {
 		print_r(json_encode($result));
 	}
 
+	public function addService(){
+		$this->init('providers');
+		$data = file_get_contents("php://input");
+		$result = $this->ProvidersModel->addService($data);
+		print_r($result);
+	}
+
+	public function delService(){
+		$this->init('providers');
+		$data = file_get_contents("php://input");
+		$result = $this->ProvidersModel->delService($data);
+		print_r($result);
+	}
+
 	public function getProviderData(){
 		$this->init('providers');
 		$provider = $this->ProvidersModel->getProviderData();

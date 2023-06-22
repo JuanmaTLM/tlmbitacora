@@ -83,9 +83,10 @@ date_default_timezone_set('America/Monterrey');
 		margin-left :2.5%;
 		margin-right :2.5%
 	}
-	input[type=text], input[type=file],input[type=date],input[type=number],input[type=email],select{
-    border : none;
-    border-bottom: 1px solid black;
+	input[type=text], input[type=file],input[type=date],input[type=number],input[type=email],select,textarea{
+    border : none !important;
+    border-bottom: 1px solid black !important;
+    border-right: 1px solid black !important;
   }
 
 </style>
