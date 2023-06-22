@@ -130,6 +130,7 @@
 
 		  		  		<?php 
 		  			  		if($services){
+		  			  			$sr = true;
 		  			  		  	$i = 1;
 		  		  				foreach($services as $service){
 		  		  					echo "<tr>";
@@ -157,7 +158,8 @@
 
 		  				<?php
 
-		  					}else{
+		  					}else if(!$services){
+		  						$sr = 0;
 
 		  		  		?>
 		  		  		    <tr>
@@ -198,6 +200,7 @@
 
 		  			  		  		<?php 
 		  			  			  		if($fletes){
+		  			  			  			$fl = true;
 		  			  		  				foreach($fletes as $flete){
 		  			  		  					echo "<tr>";
 		  			  		  			?>		
@@ -224,6 +227,7 @@
 		  			  				<?php
 
 		  			  					}else{
+		  			  						$fl = 0;
 
 		  			  		  		?>
 		  			  		  		    <tr>
@@ -298,6 +302,40 @@ NEW SERVICE MODAL
 
 
  <script type="text/javascript">
+ 	let fletes = <?php echo $fl; ?>;
+ 	let services = <?php echo $sr; ?>;
+ 	window.onload = function(){
+ 		console.log (fletes);
+ 		console.log (services);
+ 		if(fletes == 0){
+ 			alert("Agregar Fletes!");
+ 		}else{
+ 			fillFletes();
+ 		}
+ 		if(services == 0){
+ 			alert("Agregar Servicios!");
+ 		}else{
+ 			fillServices();
+ 		}
+		btnCancelProvider.style.display ='none';
+ 		btnSaveProvider.style.display ='none';
+ 		edtxtName.disabled = true;
+ 		edtxtEmail.disabled = true;
+ 		edtxtTelefono.disabled = true;
+ 		edtxtGiro.disabled = true;
+ 		edtxtSector.disabled = true;
+ 		edtxtTipoProveedor.disabled = true;
+ 		edtxtCalle.disabled = true;
+ 		edtxtNumExterior.disabled = true;
+ 		edtxtNumInterior.disabled = true;
+ 		edtxtColonia.disabled = true;
+ 		edtxtCiudad.disabled = true;
+ 		edtxtEstado.disabled = true;
+ 		edtxtCodigoPostal.disabled = true;
+
+
+ 	};
+
  	let btnNewService= document.getElementById('btnNewService');
  	let btnEditService = document.getElementById('btnEditService');
 
@@ -334,23 +372,7 @@ NEW SERVICE MODAL
  	const edtxtEstado = document.getElementById('edtxtEstado');
  	const edtxtCodigoPostal = document.getElementById('edtxtCodigoPostal');
 
- 	window.onload = function(){
-		btnCancelProvider.style.display ='none';
- 		btnSaveProvider.style.display ='none';
- 		edtxtName.disabled = true;
- 		edtxtEmail.disabled = true;
- 		edtxtTelefono.disabled = true;
- 		edtxtGiro.disabled = true;
- 		edtxtSector.disabled = true;
- 		edtxtTipoProveedor.disabled = true;
- 		edtxtCalle.disabled = true;
- 		edtxtNumExterior.disabled = true;
- 		edtxtNumInterior.disabled = true;
- 		edtxtColonia.disabled = true;
- 		edtxtCiudad.disabled = true;
- 		edtxtEstado.disabled = true;
- 		edtxtCodigoPostal.disabled = true;
- 	};
+ 	
  	function actSave(){
  		if(btnSaveProvider.style.display == 'none'){
 			btnSaveProvider.style.display ='block';
@@ -388,52 +410,56 @@ NEW SERVICE MODAL
  			edtxtCodigoPostal.disabled = true;
  		}
  	}
- 	$(document).ready( function () {
-    	$('#tblFletes').DataTable({
-    		language:{
-    			processing : "En curso...",
-    			search : "Buscar:",
-    			lengthMenu: "Agrupar de _MENU_ items",
-    			info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
-    			infoEmpty: "NO existen datos...",
-    			infoFiltered : "(filtrando de _MAX_ elementos en total)",
-    			infoPostFix: "",
-    			//loadingRecords "Cargando...",
-    			zeroRecords: "No se encontraron datos con tu búsqueda.",
-    			emptyTable : "NO hay datos disponibles en la tabla.",
-    			paginate:{
-    				first: "Primero",
-    				previous : "Anterior",
-    				next: "Siguiente",
-    				last: "Último"
-    			},
-    			
-    		}
-    	});
-    	$('#tblServicios').DataTable({
-    		language:{
-    			processing : "En curso...",
-    			search : "Buscar:",
-    			lengthMenu: "Agrupar de _MENU_ items",
-    			info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
-    			infoEmpty: "NO existen datos...",
-    			infoFiltered : "(filtrando de _MAX_ elementos en total)",
-    			infoPostFix: "",
-    			//loadingRecords "Cargando...",
-    			zeroRecords: "No se encontraron datos con tu búsqueda.",
-    			emptyTable : "NO hay datos disponibles en la tabla.",
-    			paginate:{
-    				first: "Primero",
-    				previous : "Anterior",
-    				next: "Siguiente",
-    				last: "Último"
-    			},
-    			
-    		}
-    	});
+	 	function fillFletes(){
+	 		$('#tblFletes').DataTable({
+	 			language:{
+	 				processing : "En curso...",
+	 				search : "Buscar:",
+	 				lengthMenu: "Agrupar de _MENU_ items",
+	 				info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+	 				infoEmpty: "NO existen datos...",
+	 				infoFiltered : "(filtrando de _MAX_ elementos en total)",
+	 				infoPostFix: "",
+	 				//loadingRecords "Cargando...",
+	 				zeroRecords: "No se encontraron datos con tu búsqueda.",
+	 				emptyTable : "NO hay datos disponibles en la tabla.",
+	 				paginate:{
+	 					first: "Primero",
+	 					previous : "Anterior",
+	 					next: "Siguiente",
+	 					last: "Último"
+	 				},
+	 				
+	 			}
+	 		});
+	 	}
+	 	function fillServices(){
+	 		$('#tblServicios').DataTable({
+	 			language:{
+	 				processing : "En curso...",
+	 				search : "Buscar:",
+	 				lengthMenu: "Agrupar de _MENU_ items",
+	 				info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+	 				infoEmpty: "NO existen datos...",
+	 				infoFiltered : "(filtrando de _MAX_ elementos en total)",
+	 				infoPostFix: "",
+	 				//loadingRecords "Cargando...",
+	 				zeroRecords: "No se encontraron datos con tu búsqueda.",
+	 				emptyTable : "NO hay datos disponibles en la tabla.",
+	 				paginate:{
+	 					first: "Primero",
+	 					previous : "Anterior",
+	 					next: "Siguiente",
+	 					last: "Último"
+	 				},
+	 				
+	 			}
+	 		});
+	 	}
+    	
+    	
     	
 
-	} );
  	let editP = {};
 
 	function saveProv(id){

@@ -72,9 +72,21 @@ class ProvidersController extends CI_Controller {
 		$provider = $this->ProvidersModel->getProviderData();
 		$fletes = $this->ProvidersModel->getProviderFletes();
 		$services = $this->ProvidersModel->getProviderServices();
-		$info['provider'] = json_encode($provider);
-		$info['fletes'] =  json_encode($fletes);
-		$info['services'] = json_encode($services);
+		if(!$provider){
+			$info['provider'] = false;
+		}else{
+			$info['provider'] = json_encode($provider);
+		}
+		if(!$fletes){
+			$info['fletes'] = false;
+		}else{
+			$info['fletes'] =  json_encode($fletes);
+		}
+		if(!$provider){
+			$info['services'] = false;
+		}else{
+			$info['services'] = json_encode($services);
+		}
 		$this->load->view('Template/head');
 		$this->load->view('Template/Menu');
 		$this->load->view('Providers/tblInfoProvider',$info);
