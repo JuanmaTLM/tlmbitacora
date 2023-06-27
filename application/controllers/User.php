@@ -32,12 +32,11 @@ class User extends CI_Controller {
 		$data = $this->MUsers->login($email, $password);
 		if($data){
 			$this->session->set_userdata('user', $data);
-			print_r($data);
-			if($data['IdType'] > 0  &&  $data['IdType'] <= 3){
-				redirect('dashboard');
-			}else if($data['IdType'] = 5 && $data['IdType']){
-				redirect('listRef');
-			}
+			//if($data['IdType'] > 0  &&  $data['IdType'] <= 3){
+			redirect('dashboard');
+			//}else if($data['IdType'] = 5 && $data['IdType']){
+				//redirect('listRef');
+			//}
 			
 		}
 		else{

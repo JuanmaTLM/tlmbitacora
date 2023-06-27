@@ -252,7 +252,7 @@
 		  <div class="tab-pane container" id="fletes">
 		  			  	<div class="d-flex flex-wrap justify-content-end">
 		  			  		<div class="p-2">
-		  			  			<button type="button" class="btn btn-outline-primary btn-md" onclick="alert('En construcción...')";<?php //addModalFletes(0); ?>"  >Nuevo Flete</button>
+		  			  			<button type="button" class="btn btn-outline-primary btn-md" onclick="<?php addModalFletes(0); ?> alert('En construcción...');"  >Nuevo Flete</button>
 		  			  		</div>
 		  			  	</div>
 		  			  	<div class="d-flex flex-wrap justify-content-center flex-column">
@@ -379,18 +379,7 @@ NEW SERVICE MODAL
  	let fletes = <?php echo $fl; ?>;
  	let services = <?php echo $sr; ?>;
  	window.onload = function(){
- 		console.log (fletes);
- 		console.log (services);
- 		if(fletes == 0){
- 			alert("Agregar Fletes!");
- 		}else{
- 			fillFletes();
- 		}
- 		if(services == 0){
- 			alert("Agregar Servicios!");
- 		}else{
- 			fillServices();
- 		}
+ 		
 		btnCancelProvider.style.display ='none';
  		btnSaveProvider.style.display ='none';
  		edtxtName.disabled = true;
@@ -407,7 +396,16 @@ NEW SERVICE MODAL
  		edtxtEstado.disabled = true;
  		edtxtCodigoPostal.disabled = true;
 
-
+ 		if(fletes == 0){
+ 			alert("Agregar Fletes!");
+ 		}else{
+ 			fillFletes();
+ 		}
+ 		if(services == 0){
+ 			alert("Agregar Servicios!");
+ 		}else{
+ 			fillServices();
+ 		}
  	};
 
  	let btnNewService= document.getElementById('btnNewService');
