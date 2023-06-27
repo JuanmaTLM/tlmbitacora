@@ -103,6 +103,9 @@ $route['findService'] = 'ProvidersController/findService';
 $route['editService'] = 'ProvidersController/editService';
 $route['addFlete'] = 'ProvidersController/addFlete';
 $route['getFletesTypes'] = 'ProvidersController/getFletesTypes';
+$route['findFlete'] = 'ProvidersController/getFlete';
+$route['editFlete'] = 'ProvidersController/editFlete';
+$route['delFlete'] = 'ProvidersController/delFlete';
 
 
 

@@ -13,7 +13,7 @@
         <h4 class="modal-title" id="modTitFle"></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-
+      <input type="hidden" id="eIdFlete">
       <!-- Modal body -->
       <div class="modal-body">
       	<div class="row">
@@ -252,7 +252,7 @@
 		  <div class="tab-pane container" id="fletes">
 		  			  	<div class="d-flex flex-wrap justify-content-end">
 		  			  		<div class="p-2">
-		  			  			<button type="button" class="btn btn-outline-primary btn-md" onclick="<?php addModalFletes(0); ?> alert('En construcción...');"  >Nuevo Flete</button>
+		  			  			<button type="button" class="btn btn-outline-primary btn-md" onclick="addModalFletes(0);"  >Nuevo Flete</button>
 		  			  		</div>
 		  			  	</div>
 		  			  	<div class="d-flex flex-wrap justify-content-center flex-column">
@@ -274,12 +274,13 @@
 		  			  		  		<?php 
 		  			  			  		if($fletes){
 		  			  			  			$fl = true;
+		  			  			  			$i=1;
 		  			  		  				foreach($fletes as $flete){
 		  			  		  					echo "<tr>";
 		  			  		  			?>		
 		  			  		  				<form action="#" method="POST">
 		  			  					<?php 
-		  			  		  					echo "<td>" . $flete->idFlete . "</td>";
+		  			  		  					echo "<td>" . $i . "</td>";
 		  			  		  					echo "<td>" . $flete->Origen . "</td>";
 		  			  		  					echo "<td>" . $flete->Destino . "</td>";
 		  			  		  					echo "<td>" . $flete->Descripcion . "</td>";
@@ -287,12 +288,15 @@
 		  			  		  					echo "<td>" . $flete->Distancia . "</td>";
 		  			  		  					echo "<td>";
 		  			  		  			?>		
-		  			  		  				<button type="button"  class="btn btn-outline-warning" value="">Borrar</button>
+		  			  		  				<button type="button"  class="btn btn-outline-warning" value="" onclick="delFlete(<?php echo $flete->idFlete ?>);">Borrar</button>
+		  			  		  				<button type="button"  class="btn btn-outline-primary" onclick="editFlete(<?php echo $flete->idFlete ?>);" id="btnEditFlete">Editar</button>
 		  			  					<?php 
 
 		  			  		  					echo "</td>";
 		  			  		  					echo "</form>";
 		  			  		  					echo "</tr>";
+
+		  			  		  					$i++;
 
 		  			  		  				}
 		  			  			  	?>		
@@ -378,6 +382,31 @@ NEW SERVICE MODAL
  <script type="text/javascript">
  	let fletes = <?php echo $fl; ?>;
  	let services = <?php echo $sr; ?>;
+
+ 	function delFlete(id){
+ 		let obj = {};
+ 		obj.eIdFlete = id;
+ 		if(confirm("Eliminar el flete?")){
+ 			axios.post("<?php echo site_url('delFlete'); ?>" ,obj).then(
+				function(res){
+        if (res.status == 200) {
+          if(res.data){
+          	console.log(res.data);
+          	alert("Flete eliminado correctamente!");
+           window.location.reload();
+          }
+        }
+    	}).catch(function(err){
+        alert(err);
+        console.log(err);
+    	});
+ 		}else{
+ 			alert("No se eliminó el flete!");
+ 			window.location.reload();
+ 		}
+ 		
+ 	}
+
  	window.onload = function(){
  		
 		btnCancelProvider.style.display ='none';
@@ -482,6 +511,7 @@ NEW SERVICE MODAL
  			edtxtCodigoPostal.disabled = true;
  		}
  	}
+
  	function fillFletes(){
 	 		$('#tblFletes').DataTable({
 	 			language:{
@@ -505,6 +535,7 @@ NEW SERVICE MODAL
 	 			}
 	 		});
 	 	}
+
  	function fillServices(){
 	 		$('#tblServicios').DataTable({
 	 			language:{
@@ -529,10 +560,7 @@ NEW SERVICE MODAL
 	 		});
 	 	}
     	
-    	
-    	
-
- 	let editP = {};
+  let editP = {};
 
 	function saveProv(id){
 		let provider = <?php print_r(json_encode($provider[0])); ?>;
@@ -650,6 +678,7 @@ NEW SERVICE MODAL
 	let txtServicio = document.getElementById('txtServicio');
 	let txtDescripcion = document.getElementById('txtDescripcion');
 	let txtPrecio = document.getElementById('txtPrecio');
+
 	function editService(id){
 		let obj = {};
 		obj.eId = id;
@@ -669,6 +698,7 @@ NEW SERVICE MODAL
           console.log(err);
       	});
 	}
+
 	function edService(id){
 		let obj = {};
 		obj.eIdService = id;
@@ -690,6 +720,7 @@ NEW SERVICE MODAL
           console.log(err);
       	});
 	}
+	
 	function resetInputs(){
 		txtServicio.value = '';
 		txtDescripcion.value = '';
@@ -735,6 +766,7 @@ NEW SERVICE MODAL
 		          console.log(err);
 		      	});
 	}
+	
 	function delService(id){
 		let obj = {};
 		obj.eIdProveedor = id;
@@ -754,7 +786,6 @@ NEW SERVICE MODAL
 		}
 	}
 
-
 	//FLETES
 	 function addModalFletes(opt){
 	 		switch(opt){
@@ -765,16 +796,17 @@ NEW SERVICE MODAL
 	 		}
 	 }
 
-	 let txtOrigen = document.getElementById('txtOrigen');
-	 let txtDestino = document.getElementById('txtDestino');
-	 let txtPrecioF = document.getElementById('txtPrecio');
-	 let txtDistancia = document.getElementById('txtDistancia');
-	 let txtDescripcionF = document.getElementById('txtDescripcionF');
-	 let eTipo = document.getElementById('eTipo');
-	 let modTitFle = document.getElementById('modTitFle');
-	 let btnSaveFlete = document.getElementById('btnSaveFlete');
+	let eIdFlete = document.getElementById('eIdFlete');
+	let txtOrigen = document.getElementById('txtOrigen');
+	let txtDestino = document.getElementById('txtDestino');
+	let txtPrecioF = document.getElementById('txtPrecio');
+	let txtDistancia = document.getElementById('txtDistancia');
+	let txtDescripcionF = document.getElementById('txtDescripcionF');
+	let eTipo = document.getElementById('eTipo');
+	let modTitFle = document.getElementById('modTitFle');
+	let btnSaveFlete = document.getElementById('btnSaveFlete');
 
-	 function cleanInputFlete(){
+	function cleanInputFlete(){
 	 		btnSaveFlete.value = true;
 	 		modTitFle.innerHTML ="Nuevo Flete"
 	 		txtOrigen.value = "";
@@ -784,26 +816,30 @@ NEW SERVICE MODAL
 	 		txtDescripcionF.value = "";
 	 		eTipo.value = '0';
 	 }
-	 function fillFletesTypes(){
-	 			axios.get("<?php echo site_url('getFletesTypes'); ?>").then(
-	 				function(res){
-	 		          if (res.status == 200) {
-	 		            if(res.data){
-	 		            	let data = res.data;
-	 		            	let item ='<option value = "0">Seleccione opción</option>';
-	 		            	for(dat of data){
-	 		            		item +='<option title ="'+dat.txtFDescription+'" value = "'+dat.eIdFType+'">'+dat.txtFType+'</option>';
-	 		            	}
-										eTipo.innerHTML = item;	 		            	
-	 		            }
-	 		          }
-	 		      	}).catch(function(err){
-	 		          alert(err);
-	 		          console.log(err);
-	 		      	});
+	 
+	function fillFletesTypes(){
+			axios.get("<?php echo site_url('getFletesTypes'); ?>").then(
+				function(res){
+          if (res.status == 200) {
+            if(res.data){
+            	let data = res.data;
+            	let item ='<option value = "0">Seleccione opción</option>';
+            	for(dat of data){
+            		item +='<option title ="'+dat.txtFDescription+'" value = "'+dat.eIdFType+'">'+dat.txtFType+'</option>';
+            	}
+						eTipo.innerHTML = item;	 		            	
+            }
+          }
+      	}).catch(function(err){
+          alert(err);
+          console.log(err);
+      	});
 	 }
-	 function saveFlete(op){
+	 
+  function saveFlete(op){
+
 	 		let obj = {};
+
 
 	 		if(eTipo.value != '0'){
 	 			obj.eTipo = eTipo.value;
@@ -839,24 +875,68 @@ NEW SERVICE MODAL
 
  			obj.txtDistancia = txtDistancia.value;
  			obj.txtDescripcionF = txtDescripcionF.value;
-
-	 		if(op){ 
-	 				axios.post("<?php echo site_url('addFlete'); ?>" ,obj).then(
-	 					function(res){
-	 			          if (res.status == 200) {
-	 			            if(res.data){
-	 			            	console.log(res.data);
-	 			            	//alert("Flete agregado correctamente!");
-	 			             //window.location.reload();
-	 			            }
-	 			          }
-	 			      	}).catch(function(err){
-	 			          alert(err);
-	 			          console.log(err);
-	 			      	});
+	 		if(op=='true'){
+	 			obj.eIdCompany = <?php echo $provider[0]->IdProveedor; ?>;
+ 				axios.post("<?php echo site_url('addFlete'); ?>" ,obj).then(
+ 					function(res){
+	          if (res.status == 200) {
+	            if(res.data){
+	            	console.log(res.data);
+	            	alert("Flete agregado correctamente!");
+	             window.location.reload();
+	            }
+	          }
+	      	}).catch(function(err){
+	          alert(err);
+	          console.log(err);
+	      	});
 	 		}
-	 		else{alert("Editar");}
+	 		else if(op =='false'){
+	 			obj.eIdFlete = eIdFlete.value;
+ 				axios.post("<?php echo site_url('editFlete'); ?>" ,obj).then(
+ 					function(res){
+	          if (res.status == 200) {
+	            if(res.data){
+	            	console.log(res.data);
+	            	alert("Flete editado correctamente!");
+	             window.location.reload();
+	            }
+	          }
+	      	}).catch(function(err){
+	          alert(err);
+	          console.log(err);
+	      	});
+	 		}
 	 }
+
+	function editFlete(id){
+      fillFletesTypes();
+	 		let obj ={};
+	 		obj.eIdFlete = id;
+			axios.post("<?php echo site_url('findFlete'); ?>" ,obj).then(
+				function(res){
+        if (res.status == 200) {
+          if(res.data){
+          	let result = res.data;
+          	txtOrigen.value = result.txtOrigin;
+          	txtDestino.value = result.txtDestiny;
+          	txtPrecioF.value = result.flFreightPrice;
+          	txtDistancia.value = result.eDistanceKm;
+          	txtDescripcionF.value = result.txtDescFlete;
+          	eIdFlete.value = result.eIdFreight;
+          	modTitFle.innerHTML = "Editar Flete";
+          	document.getElementById('eTipo').value = result.fk_eIdFreightType;
+          	btnSaveFlete.value = false;
+	 					$('#newFProv').modal('show');
+	 					
+          }
+        }
+    	}).catch(function(err){
+        alert(err);
+        console.log(err);
+    	});
+	 }
+
  </script>
 
  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />

@@ -148,12 +148,34 @@ class ProvidersController extends CI_Controller {
 		$data = file_get_contents("php://input");
 		$result = $this->ProvidersModel->addFlete($data);
 		print_r($result);
+		//echo $result;
 	}
 
 	public function getFletesTypes(){
 		$this->init('providers');
 		$result = $this->ProvidersModel->getFletesTypes();
 		print_r(json_encode($result));	
+	}
+
+	public function getFlete(){
+		$this->init('providers');
+		$data = file_get_contents("php://input");
+		$result = $this->ProvidersModel->getFlete($data);
+		print_r(json_encode($result[0]));
+	}
+
+	public function editFlete(){
+		$this->init('providers');
+		$data = file_get_contents("php://input");
+		$result = $this->ProvidersModel->editFlete($data);
+		print_r($result);
+	}
+
+	public function delFlete(){
+		$this->init('providers');
+		$data = file_get_contents("php://input");
+		$result = $this->ProvidersModel->delFlete($data);
+		echo $result;
 	}
 
 }

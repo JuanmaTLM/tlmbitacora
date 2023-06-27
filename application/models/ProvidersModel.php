@@ -415,8 +415,30 @@ class ProvidersModel extends CI_Model
 
 	function addFlete($data){
 		$date = date("Y-m-d h:i:s");
+		$data = json_decode($data);
+		$query = "CALL insFlete ($data->eIdCompany,$data->eTipo,'$data->txtDescripcionF','$data->txtDestino','$data->txtDistancia','$data->txtOrigen','$data->txtPrecioF','$date');";
+		$result = $this->db->query($query);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function editFlete($data){
+		$date = date("Y-m-d h:i:s");
+		$data = json_decode($data);
+		$query = "CALL editFlete ($data->eTipo,'$data->txtOrigen','$data->txtDestino',$data->txtPrecioF,'$data->txtDescripcionF',$data->txtDistancia,'$date',$data->eIdFlete);";
+		$result = $this->db->query($query);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function findFlete($data){
 		return $data;
-		$query = "INSERT INTO freightslist(fk_eIdCompany, fk_eIdFreightType, txtOrigin, txtDestiny, flFreightPrice, txtDescFlete, eDistanceKm, bActive, feCreatedAt, feUpdatedAt) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]')";
 	}
 
 	function getFletesTypes(){
@@ -427,6 +449,28 @@ class ProvidersModel extends CI_Model
 			return $result->result_array();
 		}
 		else{
+			return false;
+		}
+	}
+
+	function getFlete($data){
+		$data = json_decode($data);
+		$query = "SELECT eIdFreight,fk_eIdFreightType,txtOrigin,txtDestiny,flFreightPrice,txtDescFlete,eDistanceKm FROM freightslist WHERE eIdFreight=".$data->eIdFlete;
+		$result = $this->db->query($query);
+		if($result){
+			return $result->result_array();
+		}else{
+			return false;
+		}
+	}
+
+	function delFlete($data){
+		$data = json_decode($data);
+		$query = "DELETE FROM freightslist WHERE eIdFreight = $data->eIdFlete";
+		$result = $this->db->query($query);
+		if($result){
+			return $result->result_array();
+		}else{
 			return false;
 		}
 	}
