@@ -412,4 +412,22 @@ class ProvidersModel extends CI_Model
 		else
 			return false;
 	}
+
+	function addFlete($data){
+		$date = date("Y-m-d h:i:s");
+		return $data;
+		$query = "INSERT INTO freightslist(fk_eIdCompany, fk_eIdFreightType, txtOrigin, txtDestiny, flFreightPrice, txtDescFlete, eDistanceKm, bActive, feCreatedAt, feUpdatedAt) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]')";
+	}
+
+	function getFletesTypes(){
+		$this->init('providers');
+		$query = "SELECT * FROM vwfreightstypes";
+		$result = $this->db->query($query);
+		if($result){
+			return $result->result_array();
+		}
+		else{
+			return false;
+		}
+	}
 }

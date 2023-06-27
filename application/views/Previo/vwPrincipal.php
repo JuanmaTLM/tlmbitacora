@@ -34,6 +34,12 @@
       element.style.zIndex = '9999';
     }
   </script>
+  <div class="row bg-light ml-1 mr-1 p-2 ">
+  	<div class="col-lg-9"></div>
+  	<div class="col-lg-3 text-end">
+  		<a class="btn btn-outline-warning" href="<?php echo site_url('clasGlosa')."?eIdReferencia=". $_GET['eIdReferencia'] ?>"><<- REGRESAR </a>
+  	</div>
+  </div>
 <div class=" d-flex flex-column border rounded bg-light cont">
 	<div class="d-flex justify-content-center">
 		<div><h4>Previo <hr></h4></div>

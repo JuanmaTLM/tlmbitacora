@@ -1,3 +1,76 @@
+<style type="text/css">
+	.text-end{
+		text-align: right;
+	}
+</style>
+<!-- The Modal -->
+<div class="modal fade" id="newFProv">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" id="modTitFle"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-lg-7"></div>
+      		<div class="col-lg-5">
+      			<div class="form-group">
+      			  <label for="eTipo">Tipo de flete:</label>
+      				<select id="eTipo" class="form-select"></select>
+      			</div>
+      		</div>
+      	</div>
+        <div class="row">
+        	<div class="col-lg-4">
+        		<div class="form-group">
+        		  <label for="txtOrigen">Origen:</label>
+        		  <input type="text" class="form-control" id="txtOrigen" name="txtOrigen">
+        		</div>
+        	</div>
+        	<div class="col-lg-4"><div class="form-group">
+        		  <label for="txtDestino">Destino:</label>
+        		  <input type="text" class="form-control" id="txtDestino" name="txtDestino">
+        		</div>
+        	</div>
+        	<div class="col-lg-4">
+        		<div class="form-group">
+        		  <label for="txtPrecio">Precio(MNX):</label>
+        		  <input type="number" step="0.05" min="0.00" value="0.00" class="form-control text-end" id="txtPrecio" name="txtPrecio">
+        		</div>
+        	</div>
+        </div>
+        <div class="row">
+        	<div class="col-lg-1"></div>
+        	<div class="col-lg-4">
+        		<div class="form-group">
+        		  <label for="txtDistancia">Distancia(Km):</label>
+        		  <input type="number" min="1" class="form-control text-end" id="txtDistancia" name="txtDistancia">
+        		</div>
+        	</div>
+        	<div class="col-lg-6">
+        		<div class="form-group">
+        		  <label for="txtDescripcionF">Descripción:</label>
+        		  <textarea type="text" class="form-control" id="txtDescripcionF" name="txtDescripcionF"></textarea>
+        		</div>
+        	</div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" id="btnSaveFlete" onclick="saveFlete(this.value);">Guardar</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="cleanInputFlete();">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <?php 
 		$provider = json_decode($provider);
 		$services = json_decode($services);
@@ -179,7 +252,7 @@
 		  <div class="tab-pane container" id="fletes">
 		  			  	<div class="d-flex flex-wrap justify-content-end">
 		  			  		<div class="p-2">
-		  			  			<button type="button" class="btn btn-outline-primary btn-md">Nuevo Flete</button>
+		  			  			<button type="button" class="btn btn-outline-primary btn-md" onclick="alert('En construcción...')";<?php //addModalFletes(0); ?>"  >Nuevo Flete</button>
 		  			  		</div>
 		  			  	</div>
 		  			  	<div class="d-flex flex-wrap justify-content-center flex-column">
@@ -301,6 +374,7 @@ NEW SERVICE MODAL
 
 
 
+
  <script type="text/javascript">
  	let fletes = <?php echo $fl; ?>;
  	let services = <?php echo $sr; ?>;
@@ -410,7 +484,7 @@ NEW SERVICE MODAL
  			edtxtCodigoPostal.disabled = true;
  		}
  	}
-	 	function fillFletes(){
+ 	function fillFletes(){
 	 		$('#tblFletes').DataTable({
 	 			language:{
 	 				processing : "En curso...",
@@ -433,7 +507,7 @@ NEW SERVICE MODAL
 	 			}
 	 		});
 	 	}
-	 	function fillServices(){
+ 	function fillServices(){
 	 		$('#tblServicios').DataTable({
 	 			language:{
 	 				processing : "En curso...",
@@ -681,6 +755,110 @@ NEW SERVICE MODAL
 		      	});
 		}
 	}
+
+
+	//FLETES
+	 function addModalFletes(opt){
+	 		switch(opt){
+	 			case 0:
+	 			cleanInputFlete();
+	 			fillFletesTypes();
+	 			$('#newFProv').modal('show');
+	 		}
+	 }
+
+	 let txtOrigen = document.getElementById('txtOrigen');
+	 let txtDestino = document.getElementById('txtDestino');
+	 let txtPrecioF = document.getElementById('txtPrecio');
+	 let txtDistancia = document.getElementById('txtDistancia');
+	 let txtDescripcionF = document.getElementById('txtDescripcionF');
+	 let eTipo = document.getElementById('eTipo');
+	 let modTitFle = document.getElementById('modTitFle');
+	 let btnSaveFlete = document.getElementById('btnSaveFlete');
+
+	 function cleanInputFlete(){
+	 		btnSaveFlete.value = true;
+	 		modTitFle.innerHTML ="Nuevo Flete"
+	 		txtOrigen.value = "";
+	 		txtDestino.value = "";
+	 		txtPrecioF.value = "0.00";
+	 		txtDistancia.value = "";
+	 		txtDescripcionF.value = "";
+	 		eTipo.value = '0';
+	 }
+	 function fillFletesTypes(){
+	 			axios.get("<?php echo site_url('getFletesTypes'); ?>").then(
+	 				function(res){
+	 		          if (res.status == 200) {
+	 		            if(res.data){
+	 		            	let data = res.data;
+	 		            	let item ='<option value = "0">Seleccione opción</option>';
+	 		            	for(dat of data){
+	 		            		item +='<option title ="'+dat.txtFDescription+'" value = "'+dat.eIdFType+'">'+dat.txtFType+'</option>';
+	 		            	}
+										eTipo.innerHTML = item;	 		            	
+	 		            }
+	 		          }
+	 		      	}).catch(function(err){
+	 		          alert(err);
+	 		          console.log(err);
+	 		      	});
+	 }
+	 function saveFlete(op){
+	 		let obj = {};
+
+	 		if(eTipo.value != '0'){
+	 			obj.eTipo = eTipo.value;
+	 		}else{
+	 			alert("Agregar un Tipo de Flete");
+	 			eTipo.focus();
+	 			return;
+	 		}
+
+	 		if(txtOrigen.value != ''){
+	 			obj.txtOrigen = txtOrigen.value;
+	 		}else{
+	 			alert("Agregar un Origen");
+	 			txtOrigen.focus();
+	 			return;
+	 		}
+
+	 		if(txtDestino.value != ''){
+	 			obj.txtDestino = txtDestino.value;
+	 		}else{
+	 			alert("Agregar un Destino");
+	 			txtDestino.focus();
+	 			return;
+	 		}
+
+	 		if(txtPrecioF.value != '0.00'){
+	 			obj.txtPrecioF = txtPrecioF.value;
+	 		}else{
+	 			alert("Agregar un Precio");
+	 			txtPrecioF.focus();
+	 			return;
+	 		}
+
+ 			obj.txtDistancia = txtDistancia.value;
+ 			obj.txtDescripcionF = txtDescripcionF.value;
+
+	 		if(op){ 
+	 				axios.post("<?php echo site_url('addFlete'); ?>" ,obj).then(
+	 					function(res){
+	 			          if (res.status == 200) {
+	 			            if(res.data){
+	 			            	console.log(res.data);
+	 			            	//alert("Flete agregado correctamente!");
+	 			             //window.location.reload();
+	 			            }
+	 			          }
+	 			      	}).catch(function(err){
+	 			          alert(err);
+	 			          console.log(err);
+	 			      	});
+	 		}
+	 		else{alert("Editar");}
+	 }
  </script>
 
  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />

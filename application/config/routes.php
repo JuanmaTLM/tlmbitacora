@@ -101,6 +101,10 @@ $route['addService'] = 'ProvidersController/addService';
 $route['delService'] = 'ProvidersController/delService';
 $route['findService'] = 'ProvidersController/findService';
 $route['editService'] = 'ProvidersController/editService';
+$route['addFlete'] = 'ProvidersController/addFlete';
+$route['getFletesTypes'] = 'ProvidersController/getFletesTypes';
+
+
 
 /*
 INICIO CLIENTES
